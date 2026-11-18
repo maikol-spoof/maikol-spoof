@@ -907,16 +907,7 @@
     <script>
         function showDownloadMsg(e) {
             e.preventDefault();
-            var btn = e.currentTarget;
-            var orig = btn.innerHTML;
-            btn.innerHTML = '&#10003; Contacta por Discord para recibir tu enlace';
-            btn.style.opacity = '0.7';
-            btn.style.pointerEvents = 'none';
-            setTimeout(function() {
-                btn.innerHTML = orig;
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-            }, 3000);
+            window.open('https://discord.gg/Ua2UQJr9F', '_blank');
         }
 
         function copyHash(btn, hash) {
