@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminos y Condiciones - MAIKOL FiveM Spoof</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #08080a;
+            --bg-secondary: #0f0f13;
+            --bg-card: #131318;
+            --border: #1e1e28;
+            --purple-400: #a78bfa;
+            --purple-600: #7c3aed;
+            --purple-700: #6d28d9;
+            --text-primary: #f0f0f4;
+            --text-secondary: #9090a0;
+            --text-muted: #5a5a6e;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 16px 0;
+            background: rgba(8,8,10,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        nav .nav-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo { text-decoration: none; }
+        .logo-img { height: 44px; width: auto; display: block; }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            transition: all 0.25s;
+        }
+        .btn-back:hover {
+            border-color: var(--purple-600);
+            background: #1a1a22;
+        }
+
+        /* HEADER */
+        .page-header {
+            padding: 160px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 80px; left: 50%;
+            transform: translateX(-50%);
+            width: 500px; height: 400px;
+            background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .page-header h1 {
+            font-size: clamp(32px, 5vw, 44px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        .page-header h1 span {
+            background: linear-gradient(135deg, var(--purple-400), #e879f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-header .updated {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* CONTENT */
+        .legal {
+            padding: 0 0 100px;
+        }
+        .legal-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        .legal-section:hover {
+            border-color: rgba(124,58,237,0.25);
+        }
+        .legal-section h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--purple-400);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .legal-section h2 .num {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            background: rgba(124,58,237,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--purple-400);
+            flex-shrink: 0;
+        }
+        .legal-section p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        .legal-section p:last-child { margin-bottom: 0; }
+        .legal-section ul {
+            list-style: none;
+            margin: 12px 0;
+        }
+        .legal-section ul li {
+            font-size: 15px;
+            color: var(--text-secondary);
+            padding: 6px 0 6px 20px;
+            position: relative;
+            line-height: 1.7;
+        }
+        .legal-section ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--purple-600);
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+        }
+        .footer-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-text { font-size: 13px; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .legal-section { padding: 24px; }
+            .footer-content { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo"><img src="maikol-logo.png" alt="MAIKOL" class="logo-img"></a>
+            <a href="index.html" class="btn-back">&#8592; Volver</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Terminos y <span>Condiciones</span></h1>
+            <p class="updated">Ultima actualizacion: 18 de noviembre de 2026</p>
+        </div>
+
+        <div class="legal">
+
+            <div class="legal-section">
+                <h2><span class="num">1</span> Aceptacion de los Terminos</h2>
+                <p>Al adquirir, descargar o utilizar MAIKOL FiveM Spoof (en adelante, "el Software"), usted acepta estar sujeto a estos Terminos y Condiciones en su totalidad. Si no esta de acuerdo con alguno de estos terminos, no utilice el Software.</p>
+                <p>El uso continuado del Software despues de cualquier modificacion de estos terminos constituye la aceptacion de dichos cambios.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2><span class="num">2</span> Descripcion del Servicio</h2>
+                <p>MAIKOL FiveM Spoof es una herramienta de privacidad para sistemas Windows que realiza las siguientes operaciones:</p>
+                <ul>
+                    <li>Limpieza de datos locales y cache de aplicaciones</li>
+                    <li>Rotacion de identificadores de hardware a nivel de registro de Windows</li>
+                    <li>Modificacion de direcciones MAC de adaptadores de red</li>
+                    <li>Limpieza de archivos temporales y rastros del sistema</li>
+                    <li>Generacion de scripts de mantenimiento automatizado</li>
+                    <li>Verificacion del estado de identificadores del sistema</li>
+                </ul>
+            </div>
+
+            <div class="legal-section">
+                <h2><span class="num">3</span> Licencia de Uso</h2>
+                <p>Al completar la compra, se le otorga una licencia personal, no exclusiva e intransferible para utilizar el Software de acuerdo con el plan adquirido:</p>
+                <ul>
+                    <li><strong style="color: var(--text-primary);">Plan Basico ($5):</strong> Licencia para un (1) uso unico del Software</li>
+                    <li><strong style="color: var(--text-primary);">Plan Premium ($10):</strong> Licencia para usos ilimitados, con actualizaciones durante 3 meses</li>
+                    <li><strong style="color: var(--text-primary);">Plan Lifetime ($20):</strong> Licencia para usos ilimitados, con actualizaciones de por vida y soporte prioritario</li>
+                </ul>
+                <p>La licencia es para uso individual y no puede ser compartida, revendida, sublicenciada ni transferida a terceros.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2><span class="num">4</span> Responsabilidad del Usuario</h2>
+                <p>El usuario es el unico responsable del uso que haga del Software. Al utilizar MAIKOL FiveM Spoof, usted declara y garantiza que:</p>
+                <ul>
+                    <li>Es mayor de edad en su jurisdiccion</li>
+                    <li>Utilizara el Software bajo su propia responsabilidad</li>
+                    <li>Comprende que la modificacion de identificadores de hardware puede afectar otras aplicaciones o servicios</li>
+                    <li>Acepta que el uso del Software puede violar los terminos de servicio de plataformas de terceros</li>
+                    <li>No redistribuira, decompilara ni realizara ingenieria inversa del Software</li>
+                </ul>
+            </div>
+
+            <div class="legal-section">
+                <h2><span class="num">5</span> Limitacion de Responsabilidad</h2>
+                <p>El Software se proporciona "TAL CUAL" y "SEGUN DISPONIBILIDAD", sin garantias de ningun tipo, ya sean expresas o implicitas. En la medida maxima permitida por la ley aplicable:</p>
+                <ul>
+                    <li>No garantizamos que el Software funcione sin interrupciones o errores</li>
+                    <li>No somos responsables de bans, suspensiones o restricciones impuestas por plataformas de terceros</li>
+                    <li>No somos responsables de danos directos, indirectos, incidentales o consecuentes derivados del uso del Software</li>
+                    <li>No somos responsables de la perdida de datos, configuraciones o funcionalidad del sistema</li>
+                </ul>
+                <p>La responsabilidad total maxima en cualquier caso se limita al monto pagado por el usuario por la licencia del Software.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2><span class="num">6</span> Politica de Reembolsos</h2>
+                <p>Debido a la naturaleza digital del producto:</p>
+                <ul>
+                    <li>No se ofrecen reembolsos una vez entregado el Software</li>
+                    <li>Si el Software presenta un defecto verificable que impide su funcionamiento, se proporcionara soporte tecnico para resolver el problema</li>
+                    <li>En caso de que el problema no pueda resolverse, se evaluara un reembolso parcial o total a discrecion del vendedor</li>
+                </ul>
+            </div>
+
+            <div class="legal-section">
+                <h2><span class="num">7</span> Actualizaciones y Soporte</h2>
+                <p>Las actualizaciones y el soporte tecnico se proporcionan segun el plan adquirido. Nos reservamos el derecho de:</p>
+                <ul>
+                    <li>Modificar las funciones del Software en futuras versiones</li>
+                    <li>Discontinuar el desarrollo del Software con previo aviso</li>
+                    <li>Cambiar los canales de soporte y distribucion</li>
+                </ul>
+                <p>El soporte se brinda exclusivamente a traves de los canales oficiales: Discord y Telegram.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2><span class="num">8</span> Privacidad</h2>
+                <p>MAIKOL FiveM Spoof opera localmente en el equipo del usuario. No recopilamos, transmitimos ni almacenamos datos personales, identificadores de hardware ni informacion del sistema del usuario. El Software no se conecta a servidores externos durante su ejecucion.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2><span class="num">9</span> Propiedad Intelectual</h2>
+                <p>Todos los derechos de propiedad intelectual del Software, incluyendo el codigo fuente, la interfaz grafica, los logotipos y la documentacion, son propiedad exclusiva de MAIKOL. Queda prohibida la reproduccion, distribucion o modificacion total o parcial del Software sin autorizacion expresa por escrito.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2><span class="num">10</span> Modificaciones</h2>
+                <p>Nos reservamos el derecho de modificar estos Terminos y Condiciones en cualquier momento. Las modificaciones entraran en vigor inmediatamente despues de su publicacion en esta pagina. Es responsabilidad del usuario revisar periodicamente estos terminos.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2><span class="num">11</span> Contacto</h2>
+                <p>Para consultas sobre estos terminos, soporte tecnico o cualquier otra cuestion, puede contactarnos a traves de nuestros canales oficiales:</p>
+                <ul>
+                    <li><strong style="color: var(--text-primary);">Discord:</strong> Canal oficial de MAIKOL</li>
+                    <li><strong style="color: var(--text-primary);">Telegram:</strong> Canal oficial de MAIKOL</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">2024 - 2026 MAIKOL Spoof. Todos los derechos reservados.</div>
+            <div class="footer-links">
+                <a href="index.html">Inicio</a>
+                <a href="#">Discord</a>
+                <a href="#">Telegram</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

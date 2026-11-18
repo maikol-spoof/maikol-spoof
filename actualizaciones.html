@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizaciones - MAIKOL FiveM Spoof</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #08080a;
+            --bg-secondary: #0f0f13;
+            --bg-card: #131318;
+            --bg-card-hover: #1a1a22;
+            --bg-code: #0c0c10;
+            --border: #1e1e28;
+            --purple-400: #a78bfa;
+            --purple-500: #8b5cf6;
+            --purple-600: #7c3aed;
+            --purple-700: #6d28d9;
+            --text-primary: #f0f0f4;
+            --text-secondary: #9090a0;
+            --text-muted: #5a5a6e;
+            --green: #4ade80;
+            --blue: #60a5fa;
+            --orange: #fb923c;
+            --red: #f87171;
+            --cyan: #67e8f9;
+            --yellow: #fbbf24;
+            --pink: #f472b6;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 16px 0;
+            background: rgba(8,8,10,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        nav .nav-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo { text-decoration: none; }
+        .logo-img { height: 44px; width: auto; display: block; }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            transition: all 0.25s;
+        }
+        .btn-back:hover {
+            border-color: var(--purple-600);
+            background: var(--bg-card-hover);
+        }
+
+        /* HEADER */
+        .page-header {
+            padding: 160px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 80px; left: 50%;
+            transform: translateX(-50%);
+            width: 500px; height: 400px;
+            background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .page-header h1 {
+            font-size: clamp(32px, 5vw, 44px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        .page-header h1 span {
+            background: linear-gradient(135deg, var(--purple-400), #e879f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* STATUS BANNER */
+        .status-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 14px 28px;
+            border-radius: 14px;
+            background: rgba(74,222,128,0.06);
+            border: 1px solid rgba(74,222,128,0.2);
+            margin-bottom: 56px;
+            flex-wrap: wrap;
+        }
+        .status-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse-dot 2s ease infinite;
+            flex-shrink: 0;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .status-banner span {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--green);
+        }
+        .status-banner .status-detail {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* STATS */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 72px;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 20px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+        .stat-card:hover { border-color: rgba(124,58,237,0.3); }
+        .stat-num {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+        .stat-num.purple { color: var(--purple-400); }
+        .stat-num.green { color: var(--green); }
+        .stat-num.blue { color: var(--blue); }
+        .stat-num.orange { color: var(--orange); }
+        .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* SECTION */
+        .section-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--purple-400);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .section-title {
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .section-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 560px;
+            margin: 0 auto 48px;
+        }
+
+        /* FILTER */
+        .filter-bar {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .filter-btn:hover { border-color: rgba(124,58,237,0.3); color: var(--text-primary); }
+        .filter-btn.active {
+            background: rgba(124,58,237,0.12);
+            border-color: var(--purple-600);
+            color: var(--purple-400);
+        }
+
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+            margin-bottom: 72px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--purple-600), var(--border) 90%);
+        }
+
+        .tl-entry {
+            position: relative;
+            padding-left: 72px;
+            margin-bottom: 40px;
+        }
+        .tl-entry:last-child { margin-bottom: 0; }
+
+        .tl-dot {
+            position: absolute;
+            left: 14px;
+            top: 8px;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            z-index: 2;
+        }
+        .tl-dot.major { background: var(--purple-600); box-shadow: 0 0 12px rgba(124,58,237,0.4); }
+        .tl-dot.minor { background: var(--blue); box-shadow: 0 0 8px rgba(96,165,250,0.3); }
+        .tl-dot.patch { background: var(--green); box-shadow: 0 0 8px rgba(74,222,128,0.3); }
+        .tl-dot.beta { background: var(--orange); box-shadow: 0 0 8px rgba(251,146,60,0.3); }
+
+        .tl-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            transition: border-color 0.3s;
+        }
+        .tl-card:hover { border-color: rgba(124,58,237,0.25); }
+
+        .tl-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tl-ver {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tl-ver h3 { font-size: 20px; font-weight: 800; }
+        .tl-tag {
+            padding: 3px 12px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .tl-tag.latest { background: rgba(74,222,128,0.1); color: var(--green); }
+        .tl-tag.stable { background: rgba(96,165,250,0.1); color: var(--blue); }
+        .tl-tag.major-tag { background: rgba(124,58,237,0.1); color: var(--purple-400); }
+        .tl-tag.beta-tag { background: rgba(251,146,60,0.1); color: var(--orange); }
+        .tl-date { font-size: 13px; color: var(--text-muted); }
+        .tl-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tl-changes { list-style: none; }
+        .tl-changes li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 6px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .ch-type {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+            margin-top: 2px;
+            min-width: 48px;
+            text-align: center;
+        }
+        .ch-type.new { background: rgba(74,222,128,0.1); color: var(--green); }
+        .ch-type.fix { background: rgba(96,165,250,0.1); color: var(--blue); }
+        .ch-type.imp { background: rgba(251,146,60,0.1); color: var(--orange); }
+        .ch-type.sec { background: rgba(248,113,113,0.1); color: var(--red); }
+        .ch-type.dep { background: rgba(244,114,182,0.1); color: var(--pink); }
+        .ch-type.perf { background: rgba(103,232,249,0.1); color: var(--cyan); }
+
+        .tl-stats {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .tl-stat-item {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .tl-stat-item .ts-icon { font-size: 13px; }
+
+        /* ROADMAP */
+        .roadmap-section { margin-bottom: 72px; }
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .rm-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px 24px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .rm-card:hover {
+            border-color: rgba(124,58,237,0.3);
+            transform: translateY(-3px);
+        }
+        .rm-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+        .rm-card.in-progress::before { background: var(--orange); }
+        .rm-card.planned::before { background: var(--blue); }
+        .rm-card.research::before { background: var(--purple-600); }
+
+        .rm-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+        .rm-status.in-progress { background: rgba(251,146,60,0.1); color: var(--orange); }
+        .rm-status.planned { background: rgba(96,165,250,0.1); color: var(--blue); }
+        .rm-status.research { background: rgba(124,58,237,0.1); color: var(--purple-400); }
+        .rm-status-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+        }
+        .rm-status.in-progress .rm-status-dot { background: var(--orange); }
+        .rm-status.planned .rm-status-dot { background: var(--blue); }
+        .rm-status.research .rm-status-dot { background: var(--purple-400); }
+
+        .rm-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+        .rm-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+        .rm-eta {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .rm-eta .eta-icon { font-size: 13px; }
+
+        /* UPDATE POLICY */
+        .policy-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 72px;
+            position: relative;
+            overflow: hidden;
+        }
+        .policy-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--purple-600), var(--cyan), var(--purple-600));
+        }
+        .policy-section h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .policy-section h2 .pol-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: rgba(124,58,237,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .policy-section > p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+        .policy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .policy-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        .policy-icon {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .policy-icon.pi-green { background: rgba(74,222,128,0.1); }
+        .policy-icon.pi-blue { background: rgba(96,165,250,0.1); }
+        .policy-icon.pi-purple { background: rgba(124,58,237,0.1); }
+        .policy-icon.pi-orange { background: rgba(251,146,60,0.1); }
+        .policy-text h5 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+        .policy-text p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+        /* CTA */
+        .page-cta {
+            text-align: center;
+            padding: 20px 0 100px;
+        }
+        .page-cta h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
+        .page-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 28px; }
+        .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple-600), var(--purple-700));
+            color: white;
+            box-shadow: 0 0 24px rgba(124,58,237,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(124,58,237,0.45); }
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--purple-600); }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+        }
+        .footer-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-text { font-size: 13px; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-links a {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .timeline::before { left: 16px; }
+            .tl-entry { padding-left: 56px; }
+            .tl-dot { left: 6px; }
+            .tl-card { padding: 24px; }
+            .roadmap-grid { grid-template-columns: 1fr; }
+            .policy-grid { grid-template-columns: 1fr; }
+            .policy-section { padding: 28px; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .footer-content { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo"><img src="maikol-logo.png" alt="MAIKOL" class="logo-img"></a>
+            <a href="index.html" class="btn-back">&#8592; Volver</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Registro de <span>Actualizaciones</span></h1>
+            <p>Historial completo de versiones, mejoras y correcciones. Siempre transparentes con cada cambio que hacemos.</p>
+        </div>
+
+        <!-- STATUS BANNER -->
+        <div class="status-banner">
+            <span class="status-dot"></span>
+            <span>v3.2.1 - Ultima version estable</span>
+            <span class="status-detail">Publicada el 15 de Noviembre, 2026</span>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-num purple">12</div>
+                <div class="stat-label">Versiones publicadas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num green">47</div>
+                <div class="stat-label">Funciones nuevas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num blue">31</div>
+                <div class="stat-label">Bugs corregidos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num orange">18</div>
+                <div class="stat-label">Mejoras de rendimiento</div>
+            </div>
+        </div>
+
+        <!-- FILTER -->
+        <div class="section-label">Historial</div>
+        <h2 class="section-title">Todas las Versiones</h2>
+        <p class="section-desc">Cada version documentada con sus cambios, mejoras y correcciones.</p>
+
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterTl('all', this)">Todas</button>
+            <button class="filter-btn" onclick="filterTl('major', this)">Mayor</button>
+            <button class="filter-btn" onclick="filterTl('minor', this)">Menor</button>
+            <button class="filter-btn" onclick="filterTl('patch', this)">Parche</button>
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="timeline">
+
+            <!-- v3.2.1 -->
+            <div class="tl-entry" data-type="patch">
+                <div class="tl-dot patch"></div>
+                <div class="tl-card">
+                    <div class="tl-header">
+                        <div class="tl-ver">
+                            <h3>v3.2.1</h3>
+                            <span class="tl-tag latest">Ultima</span>
+                        </div>
+                        <span class="tl-date">15 Nov 2026</span>
+                    </div>
+                    <div class="tl-subtitle">Correccion de bugs y mejora en deteccion de adaptadores de red.</div>
+                    <ul class="tl-changes">
+                        <li><span class="ch-type new">Nuevo</span> Rotacion de serial SMBIOS via registro del sistema</li>
+                        <li><span class="ch-type new">Nuevo</span> Generacion automatica de nombre de equipo (DESKTOP-XXXXXXX)</li>
+                        <li><span class="ch-type imp">Mejor</span> Deteccion mejorada de adaptadores de red fisicos vs virtuales</li>
+                        <li><span class="ch-type fix">Fix</span> Corregido error al limpiar cache de Discord en rutas con espacios</li>
+                        <li><span class="ch-type fix">Fix</span> Corregido fallo al ciclar adaptadores en modo avion activo</li>
+                    </ul>
+                    <div class="tl-stats">
+                        <span class="tl-stat-item"><span class="ts-icon">&#128230;</span> 2.4 MB</span>
+                        <span class="tl-stat-item"><span class="ts-icon">&#128187;</span> Win 10/11 x64</span>
+                        <span class="tl-stat-item"><span class="ts-icon">&#128100;</span> 340+ descargas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v3.2.0 -->
+            <div class="tl-entry" data-type="minor">
+                <div class="tl-dot minor"></div>
+                <div class="tl-card">
+                    <div class="tl-header">
+                        <div class="tl-ver">
+                            <h3>v3.2.0</h3>
+                            <span class="tl-tag stable">Estable</span>
+                        </div>
+                        <span class="tl-date">3 Nov 2026</span>
+                    </div>
+                    <div class="tl-subtitle">Mejoras en limpieza de rastros y nueva funcion de limpieza de Steam.</div>
+                    <ul class="tl-changes">
+                        <li><span class="ch-type new">Nuevo</span> Limpieza completa de cache de Steam (appcache, htmlcache, depotcache)</li>
+                        <li><span class="ch-type new">Nuevo</span> Opcion para limpiar historial de navegacion de Steam overlay</li>
+                        <li><span class="ch-type imp">Mejor</span> Velocidad de limpieza de archivos temporales mejorada 2x</li>
+                        <li><span class="ch-type perf">Perf</span> Reducido uso de memoria durante la fase de limpieza de rastros</li>
+                        <li><span class="ch-type fix">Fix</span> Corregida limpieza incompleta de logs de eventos en Windows 11 23H2</li>
+                    </ul>
+                    <div class="tl-stats">
+                        <span class="tl-stat-item"><span class="ts-icon">&#128230;</span> 2.3 MB</span>
+                        <span class="tl-stat-item"><span class="ts-icon">&#128100;</span> 520+ descargas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v3.1.0 -->
+            <div class="tl-entry" data-type="minor">
+                <div class="tl-dot minor"></div>
+                <div class="tl-card">
+                    <div class="tl-header">
+                        <div class="tl-ver">
+                            <h3>v3.1.0</h3>
+                            <span class="tl-tag stable">Estable</span>
+                        </div>
+                        <span class="tl-date">28 Oct 2026</span>
+                    </div>
+                    <div class="tl-subtitle">Lanzamiento de la interfaz grafica WPF con tema oscuro completo.</div>
+                    <ul class="tl-changes">
+                        <li><span class="ch-type new">Nuevo</span> Interfaz grafica WPF con tema oscuro y acento purpura</li>
+                        <li><span class="ch-type new">Nuevo</span> Barra de progreso en tiempo real para cada fase</li>
+                        <li><span class="ch-type new">Nuevo</span> Log detallado con colores en RichTextBox</li>
+                        <li><span class="ch-type new">Nuevo</span> Botones individuales por fase + boton "Ejecutar Todo"</li>
+                        <li><span class="ch-type imp">Mejor</span> Velocidad de limpieza de FiveM mejorada 3x</li>
+                        <li><span class="ch-type fix">Fix</span> Corregido ciclo de adaptador en Windows 11 23H2</li>
+                        <li><span class="ch-type fix">Fix</span> Corregido fallo al generar HwProfileGuid en sistemas con perfil corrupto</li>
+                    </ul>
+                    <div class="tl-stats">
+                        <span class="tl-stat-item"><span class="ts-icon">&#128230;</span> 2.2 MB</span>
+                        <span class="tl-stat-item"><span class="ts-icon">&#128100;</span> 890+ descargas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v3.0.0 -->
+            <div class="tl-entry" data-type="major">
+                <div class="tl-dot major"></div>
+                <div class="tl-card">
+                    <div class="tl-header">
+                        <div class="tl-ver">
+                            <h3>v3.0.0</h3>
+                            <span class="tl-tag major-tag">Mayor</span>
+                        </div>
+                        <span class="tl-date">10 Sep 2026</span>
+                    </div>
+                    <div class="tl-subtitle">Reescritura completa del motor. Sistema de 5 fases y verificacion HWID.</div>
+                    <ul class="tl-changes">
+                        <li><span class="ch-type new">Nuevo</span> Sistema completo de 5 fases (Limpieza FiveM, HWID, Red, Rastros, Inicio Limpio)</li>
+                        <li><span class="ch-type new">Nuevo</span> Verificacion HWID post-spoof con reporte detallado</li>
+                        <li><span class="ch-type new">Nuevo</span> Limpieza de logs de eventos de Windows (Application, System, Security)</li>
+                        <li><span class="ch-type new">Nuevo</span> Script de inicio limpio para mantenimiento automatico</li>
+                        <li><span class="ch-type new">Nuevo</span> Rotacion de HwProfileGuid</li>
+                        <li><span class="ch-type imp">Mejor</span> Reescritura completa del motor de rotacion HWID</li>
+                        <li><span class="ch-type sec">Segur</span> Validacion mejorada de permisos de administrador</li>
+                        <li><span class="ch-type dep">Dep</span> Eliminado soporte para Windows 7 y 8.1</li>
+                    </ul>
+                    <div class="tl-stats">
+                        <span class="tl-stat-item"><span class="ts-icon">&#128230;</span> 2.1 MB</span>
+                        <span class="tl-stat-item"><span class="ts-icon">&#128100;</span> 1,400+ descargas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v2.5.0 -->
+            <div class="tl-entry" data-type="minor">
+                <div class="tl-dot minor"></div>
+                <div class="tl-card">
+                    <div class="tl-header">
+                        <div class="tl-ver">
+                            <h3>v2.5.0</h3>
+                            <span class="tl-tag stable">Estable</span>
+                        </div>
+                        <span class="tl-date">15 Jul 2026</span>
+                    </div>
+                    <div class="tl-subtitle">Soporte para rotacion MAC mejorada y limpieza de Discord.</div>
+                    <ul class="tl-changes">
+                        <li><span class="ch-type new">Nuevo</span> Rotacion MAC con ciclo automatico de adaptador</li>
+                        <li><span class="ch-type new">Nuevo</span> Limpieza de cache y sesion de Discord</li>
+                        <li><span class="ch-type imp">Mejor</span> Formato de ProductId validado con patron XXXXX-XXXXX-XXXXX-XXXXX</li>
+                        <li><span class="ch-type perf">Perf</span> Tiempo de ejecucion reducido un 40% en la fase de red</li>
+                        <li><span class="ch-type fix">Fix</span> Corregido error al detectar adaptadores Bluetooth como adaptadores de red</li>
+                    </ul>
+                    <div class="tl-stats">
+                        <span class="tl-stat-item"><span class="ts-icon">&#128230;</span> 1.8 MB</span>
+                        <span class="tl-stat-item"><span class="ts-icon">&#128100;</span> 950+ descargas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v2.0.0 -->
+            <div class="tl-entry" data-type="major">
+                <div class="tl-dot major"></div>
+                <div class="tl-card">
+                    <div class="tl-header">
+                        <div class="tl-ver">
+                            <h3>v2.0.0</h3>
+                            <span class="tl-tag major-tag">Mayor</span>
+                        </div>
+                        <span class="tl-date">20 Abr 2026</span>
+                    </div>
+                    <div class="tl-subtitle">Primera version con rotacion completa de HWID y limpieza de FiveM.</div>
+                    <ul class="tl-changes">
+                        <li><span class="ch-type new">Nuevo</span> Rotacion de MachineGuid, ProductId e InstallDate</li>
+                        <li><span class="ch-type new">Nuevo</span> Limpieza completa de carpeta FiveM y registros CitizenFX</li>
+                        <li><span class="ch-type new">Nuevo</span> Limpieza de datos de Rockstar Social Club</li>
+                        <li><span class="ch-type new">Nuevo</span> Flush de DNS y renovacion DHCP</li>
+                        <li><span class="ch-type sec">Segur</span> Deteccion automatica de privilegios de administrador</li>
+                    </ul>
+                    <div class="tl-stats">
+                        <span class="tl-stat-item"><span class="ts-icon">&#128230;</span> 1.2 MB</span>
+                        <span class="tl-stat-item"><span class="ts-icon">&#128100;</span> 600+ descargas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v1.0.0 -->
+            <div class="tl-entry" data-type="major">
+                <div class="tl-dot major"></div>
+                <div class="tl-card">
+                    <div class="tl-header">
+                        <div class="tl-ver">
+                            <h3>v1.0.0</h3>
+                            <span class="tl-tag major-tag">Inicial</span>
+                        </div>
+                        <span class="tl-date">1 Feb 2026</span>
+                    </div>
+                    <div class="tl-subtitle">Primera version publica de MAIKOL FiveM Spoof.</div>
+                    <ul class="tl-changes">
+                        <li><span class="ch-type new">Nuevo</span> Motor basico de spoof con rotacion de MachineGuid</li>
+                        <li><span class="ch-type new">Nuevo</span> Limpieza basica de cache de FiveM</li>
+                        <li><span class="ch-type new">Nuevo</span> Interfaz de consola PowerShell</li>
+                    </ul>
+                    <div class="tl-stats">
+                        <span class="tl-stat-item"><span class="ts-icon">&#128230;</span> 0.5 MB</span>
+                        <span class="tl-stat-item"><span class="ts-icon">&#128100;</span> 200+ descargas</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ROADMAP -->
+        <div class="roadmap-section">
+            <div class="section-label">Proximamente</div>
+            <h2 class="section-title">Hoja de Ruta</h2>
+            <p class="section-desc">Lo que estamos desarrollando y lo que viene en futuras versiones.</p>
+
+            <div class="roadmap-grid">
+                <div class="rm-card in-progress">
+                    <div class="rm-status in-progress"><span class="rm-status-dot"></span> En desarrollo</div>
+                    <h4>Modo Automatico</h4>
+                    <p>Ejecutar las 5 fases con un solo click sin intervencion manual. Incluye programacion automatica pre-juego.</p>
+                    <div class="rm-eta"><span class="eta-icon">&#128197;</span> Estimado: Dic 2026</div>
+                </div>
+                <div class="rm-card planned">
+                    <div class="rm-status planned"><span class="rm-status-dot"></span> Planificado</div>
+                    <h4>Perfiles de Servidor</h4>
+                    <p>Guardar configuraciones especificas por servidor para aplicar el spoof optimo para cada uno.</p>
+                    <div class="rm-eta"><span class="eta-icon">&#128197;</span> Estimado: Ene 2027</div>
+                </div>
+                <div class="rm-card research">
+                    <div class="rm-status research"><span class="rm-status-dot"></span> Investigacion</div>
+                    <h4>Spoof de GPU/Disco</h4>
+                    <p>Rotacion de seriales de GPU y disco duro a nivel de registro para servidores con deteccion avanzada.</p>
+                    <div class="rm-eta"><span class="eta-icon">&#128197;</span> Estimado: Q1 2027</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UPDATE POLICY -->
+        <div class="policy-section">
+            <h2><span class="pol-icon">&#128260;</span> Politica de Actualizaciones</h2>
+            <p>Como manejamos las actualizaciones y que puedes esperar como usuario de MAIKOL.</p>
+
+            <div class="policy-grid">
+                <div class="policy-item">
+                    <div class="policy-icon pi-green">&#10003;</div>
+                    <div class="policy-text">
+                        <h5>Actualizaciones Gratuitas</h5>
+                        <p>Todas las actualizaciones estan incluidas con tu compra, sin costos adicionales ni suscripciones.</p>
+                    </div>
+                </div>
+                <div class="policy-item">
+                    <div class="policy-icon pi-blue">&#128172;</div>
+                    <div class="policy-text">
+                        <h5>Notificaciones</h5>
+                        <p>Recibe avisos de nuevas versiones en nuestro canal de Discord y grupo de Telegram.</p>
+                    </div>
+                </div>
+                <div class="policy-item">
+                    <div class="policy-icon pi-purple">&#128260;</div>
+                    <div class="policy-text">
+                        <h5>Retrocompatibilidad</h5>
+                        <p>Las configuraciones y atajos existentes se mantienen al actualizar entre versiones.</p>
+                    </div>
+                </div>
+                <div class="policy-item">
+                    <div class="policy-icon pi-orange">&#9889;</div>
+                    <div class="policy-text">
+                        <h5>Respuesta Rapida</h5>
+                        <p>Cuando FiveM actualiza su sistema de deteccion, publicamos un parche en menos de 72 horas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="page-cta">
+            <h2>Siempre <span style="color: var(--purple-400);">actualizado</span></h2>
+            <p>Compra una vez y recibe todas las actualizaciones futuras sin costo adicional.</p>
+            <div class="cta-buttons">
+                <a href="descargas.html" class="btn btn-primary">Descargar Ultima Version</a>
+                <a href="index.html#pricing" class="btn btn-secondary">Ver Precios</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">2024 - 2026 MAIKOL Spoof. Todos los derechos reservados.</div>
+            <div class="footer-links">
+                <a href="index.html">Inicio</a>
+                <a href="como-funciona.html">Como Funciona</a>
+                <a href="descargas.html">Descargas</a>
+                <a href="testimonios.html">Testimonios</a>
+                <a href="garantia.html">Garantia</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="faq.html">FAQ</a>
+                <a href="terminos.html">Terminos</a>
+                <a href="privacidad.html">Privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function filterTl(type, btn) {
+            var btns = document.querySelectorAll('.filter-btn');
+            for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+            btn.classList.add('active');
+
+            var entries = document.querySelectorAll('.tl-entry');
+            for (var i = 0; i < entries.length; i++) {
+                var entry = entries[i];
+                if (type === 'all') {
+                    entry.style.display = '';
+                } else {
+                    if (entry.getAttribute('data-type') === type) {
+                        entry.style.display = '';
+                    } else {
+                        entry.style.display = 'none';
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

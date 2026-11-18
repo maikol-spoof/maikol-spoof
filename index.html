@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAIKOL FiveM Spoof - Sistema de Privacidad</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #08080a;
+            --bg-secondary: #0f0f13;
+            --bg-card: #131318;
+            --bg-card-hover: #1a1a22;
+            --border: #1e1e28;
+            --border-glow: #7c3aed40;
+            --purple-50: #f5f3ff;
+            --purple-100: #ede9fe;
+            --purple-200: #ddd6fe;
+            --purple-300: #c4b5fd;
+            --purple-400: #a78bfa;
+            --purple-500: #8b5cf6;
+            --purple-600: #7c3aed;
+            --purple-700: #6d28d9;
+            --purple-800: #5b21b6;
+            --purple-900: #4c1d95;
+            --text-primary: #f0f0f4;
+            --text-secondary: #9090a0;
+            --text-muted: #5a5a6e;
+            --green: #4ade80;
+            --blue: #60a5fa;
+            --orange: #fb923c;
+            --red: #f87171;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 16px 0;
+            background: rgba(8,8,10,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--purple-400);
+            text-decoration: none;
+        }
+        .logo-img { height: 44px; width: auto; display: block; }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text-primary); }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple-600), var(--purple-700));
+            color: white;
+            box-shadow: 0 0 20px rgba(124,58,237,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(124,58,237,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--purple-600);
+        }
+        .btn-large { padding: 16px 36px; font-size: 16px; border-radius: 12px; }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 180px 0 120px;
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 80px; left: 50%;
+            transform: translateX(-50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-logo {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 32px;
+            filter: drop-shadow(0 0 40px rgba(124,58,237,0.4));
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 50px;
+            background: rgba(124,58,237,0.1);
+            border: 1px solid rgba(124,58,237,0.2);
+            color: var(--purple-300);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 32px;
+        }
+        .hero-badge .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .hero h1 {
+            font-size: clamp(48px, 7vw, 76px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            margin-bottom: 24px;
+        }
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--purple-400), var(--purple-300), #e879f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 540px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+        .hero-image {
+            margin-top: 80px;
+            position: relative;
+        }
+        .hero-image img {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 60px rgba(124,58,237,0.1);
+        }
+
+        /* ── STATS BAR ── */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin: -40px auto 0;
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+        .stat {
+            background: var(--bg-card);
+            padding: 28px 20px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--purple-400);
+            letter-spacing: -1px;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ── SECTIONS ── */
+        section { padding: 100px 0; }
+        .section-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--purple-400);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: clamp(32px, 4vw, 44px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 560px;
+            line-height: 1.7;
+        }
+        .section-header { margin-bottom: 60px; }
+        .section-header.center { text-align: center; }
+        .section-header.center .section-desc { margin: 0 auto; }
+
+        /* ── FEATURES GRID ── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--purple-600), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .feature-card:hover {
+            border-color: var(--border-glow);
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+        }
+        .feature-card:hover::before { opacity: 1; }
+        .feature-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        .feature-icon.purple { background: rgba(124,58,237,0.15); }
+        .feature-icon.blue { background: rgba(96,165,250,0.15); }
+        .feature-icon.green { background: rgba(74,222,128,0.15); }
+        .feature-icon.orange { background: rgba(251,146,60,0.15); }
+        .feature-icon.red { background: rgba(248,113,113,0.15); }
+        .feature-icon.cyan { background: rgba(103,232,249,0.15); }
+        .feature-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ── HOW IT WORKS ── */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            position: relative;
+        }
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 44px;
+            left: 60px; right: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--purple-600), var(--purple-400), var(--purple-600));
+            opacity: 0.3;
+        }
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        .step-number {
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 2px solid var(--purple-600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--purple-400);
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .step h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .step p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ── PRICING ── */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+        .price-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .price-card.featured {
+            border-color: var(--purple-600);
+            box-shadow: 0 0 40px rgba(124,58,237,0.15);
+            transform: scale(1.03);
+        }
+        .price-card.featured::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: -12px; left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--purple-600), var(--purple-700));
+            color: white;
+            padding: 4px 20px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .price-card:hover { transform: translateY(-4px); }
+        .price-card.featured:hover { transform: scale(1.03) translateY(-4px); }
+        .price-tier {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--purple-400);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .price-amount {
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 4px;
+        }
+        .price-amount .currency { font-size: 24px; vertical-align: super; color: var(--text-secondary); }
+        .price-period { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+        .price-features { list-style: none; margin-bottom: 32px; }
+        .price-features li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .price-features li::before {
+            content: '';
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            background: rgba(74,222,128,0.15);
+            flex-shrink: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234ade80' width='12' height='12'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .price-card .btn { width: 100%; justify-content: center; }
+
+        /* ── FAQ ── */
+        .faq-list { max-width: 700px; margin: 0 auto; }
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 24px 0;
+        }
+        .faq-question {
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-primary);
+            transition: color 0.2s;
+        }
+        .faq-question:hover { color: var(--purple-400); }
+        .faq-question .arrow {
+            font-size: 20px;
+            color: var(--text-muted);
+            transition: transform 0.3s;
+        }
+        .faq-item.open .arrow { transform: rotate(180deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 200px;
+            padding-top: 16px;
+        }
+        .faq-answer p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ── CTA ── */
+        .cta {
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+        }
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 800px; height: 400px;
+            background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .cta h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-text { font-size: 13px; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--text-primary); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .features-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+            .price-card.featured { transform: none; }
+            .price-card.featured:hover { transform: translateY(-4px); }
+            .steps { grid-template-columns: 1fr 1fr; }
+            .steps::before { display: none; }
+            .stats { grid-template-columns: 1fr 1fr; }
+            .hero { padding: 140px 0 80px; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .footer-content { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo"><img src="maikol-logo.png" alt="MAIKOL FiveM Spoof" class="logo-img"></a>
+            <div class="nav-links">
+                <a href="#features">Funciones</a>
+                <a href="como-funciona.html">Como Funciona</a>
+                <a href="#pricing">Precios</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="descargas.html">Descargas</a>
+                <a href="testimonios.html">Testimonios</a>
+                <a href="garantia.html">Garantia</a>
+                <a href="actualizaciones.html">Actualizaciones</a>
+                <a href="servicio.html">Servicio</a>
+                <a href="sistema.html">Sistema</a>
+                <a href="#pricing" class="btn btn-primary" style="padding: 8px 20px; font-size: 13px;">Comprar</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <img src="maikol-hero.png" alt="MAIKOL" class="hero-logo">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Version 2.0 disponible
+            </div>
+            <h1>
+                Protege tu<br>
+                <span class="gradient">Privacidad</span> en FiveM
+            </h1>
+            <p>
+                Sistema avanzado de limpieza y rotacion de identificadores.
+                Recupera el acceso a tus servidores favoritos en minutos.
+            </p>
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn btn-primary btn-large">Obtener Ahora</a>
+                <a href="#features" class="btn btn-secondary btn-large">Ver Funciones</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="container">
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Fases</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">99%</div>
+                <div class="stat-label">Efectividad</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">2min</div>
+                <div class="stat-label">Proceso</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Soporte</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label">Funciones</div>
+                <h2 class="section-title">Todo lo que necesitas</h2>
+                <p class="section-desc">
+                    5 fases automatizadas que cubren cada vector de identificacion
+                    que FiveM utiliza para rastrear tu sistema.
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon purple">&#128274;</div>
+                    <h3>Limpieza FiveM</h3>
+                    <p>Elimina todos los datos locales, cache, registros y tokens de licencia de FiveM y Rockstar Social Club.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon blue">&#128187;</div>
+                    <h3>Rotacion HWID</h3>
+                    <p>Rota MachineGuid, ProductId, InstallDate, HwProfileGuid y serial SMBIOS a nivel de registro.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon green">&#127760;</div>
+                    <h3>Identidad de Red</h3>
+                    <p>Cambia la MAC de todos los adaptadores, limpia DNS y renueva DHCP para nueva IP.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon orange">&#128465;</div>
+                    <h3>Limpieza de Rastros</h3>
+                    <p>Elimina temporales, prefetch, archivos recientes, cache de Discord y Steam, logs de eventos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon cyan">&#9889;</div>
+                    <h3>Inicio Limpio</h3>
+                    <p>Genera un script de arranque que limpia la cache de FiveM antes de cada sesion.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon red">&#128736;</div>
+                    <h3>Verificacion HWID</h3>
+                    <p>Muestra todos los identificadores actuales del sistema para confirmar que la rotacion fue exitosa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label">Proceso</div>
+                <h2 class="section-title">Como Funciona</h2>
+                <p class="section-desc">
+                    Proceso simple de 4 pasos. Sin conocimientos tecnicos requeridos.
+                </p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Cierra FiveM</h4>
+                    <p>Cierra FiveM y GTA V completamente antes de ejecutar</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Ejecuta el Spoof</h4>
+                    <p>Abre MAIKOL Spoof como administrador y pulsa "Ejecutar Todo"</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Reinicia</h4>
+                    <p>Reinicia tu PC para aplicar todos los cambios de hardware</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>Juega</h4>
+                    <p>Crea nueva cuenta Cfx.re y conecta a tu servidor</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label">Precios</div>
+                <h2 class="section-title">Elige tu Plan</h2>
+                <p class="section-desc">
+                    Pago unico. Sin suscripciones. Actualizaciones incluidas segun tu plan.
+                </p>
+            </div>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <div class="price-tier">Basico</div>
+                    <div class="price-amount"><span class="currency">$</span>5</div>
+                    <div class="price-period">Pago unico</div>
+                    <ul class="price-features">
+                        <li>5 fases de limpieza</li>
+                        <li>Rotacion de HWID</li>
+                        <li>Interfaz grafica</li>
+                        <li>1 uso</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Seleccionar</a>
+                </div>
+                <div class="price-card featured">
+                    <div class="price-tier">Premium</div>
+                    <div class="price-amount"><span class="currency">$</span>10</div>
+                    <div class="price-period">Pago unico</div>
+                    <ul class="price-features">
+                        <li>Todo del plan Basico</li>
+                        <li>Usos ilimitados</li>
+                        <li>Soporte por Discord</li>
+                        <li>Actualizaciones 3 meses</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Seleccionar</a>
+                </div>
+                <div class="price-card">
+                    <div class="price-tier">Lifetime</div>
+                    <div class="price-amount"><span class="currency">$</span>20</div>
+                    <div class="price-period">Para siempre</div>
+                    <ul class="price-features">
+                        <li>Todo del plan Premium</li>
+                        <li>Actualizaciones de por vida</li>
+                        <li>Soporte prioritario</li>
+                        <li>Acceso anticipado a nuevas versiones</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Seleccionar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label">FAQ</div>
+                <h2 class="section-title">Preguntas Frecuentes</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        Es compatible con Windows 10 y 11?
+                        <span class="arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Si, funciona perfectamente en Windows 10 y Windows 11, tanto en sistemas de 64 bits como en las versiones mas recientes.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        Necesito conocimientos tecnicos?
+                        <span class="arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No. La interfaz grafica hace todo automaticamente. Solo necesitas ejecutar como administrador y pulsar un boton.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        Es seguro para mi PC?
+                        <span class="arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Si. La herramienta solo modifica valores de registro y limpia archivos temporales. No instala drivers ni modifica archivos del sistema operativo.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        Funciona con todos los servidores?
+                        <span class="arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Funciona con la mayoria de servidores que usan los identificadores estandar de FiveM. Algunos servidores con protecciones adicionales pueden requerir pasos extra.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        Que metodos de pago aceptan?
+                        <span class="arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Aceptamos PayPal, criptomonedas y otros metodos. Contacta por Discord para coordinar el pago.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Listo para volver a <span style="color: var(--purple-400);">jugar</span>?</h2>
+            <p class="section-desc" style="margin: 0 auto 32px; text-align: center;">
+                Recupera el acceso a tus servidores en menos de 5 minutos.
+            </p>
+            <a href="#pricing" class="btn btn-primary btn-large">Comenzar Ahora</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">2024 - 2026 MAIKOL Spoof. Todos los derechos reservados.</div>
+                <div class="footer-links">
+                    <a href="como-funciona.html">Como Funciona</a>
+                    <a href="descargas.html">Descargas</a>
+                    <a href="testimonios.html">Testimonios</a>
+                    <a href="garantia.html">Garantia</a>
+                    <a href="actualizaciones.html">Actualizaciones</a>
+                    <a href="servicio.html">Servicio</a>
+                    <a href="sistema.html">Sistema</a>
+                    <a href="contacto.html">Contacto</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="terminos.html">Terminos</a>
+                    <a href="privacidad.html">Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Smooth scroll for anchor links -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - MAIKOL FiveM Spoof</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #08080a;
+            --bg-secondary: #0f0f13;
+            --bg-card: #131318;
+            --bg-card-hover: #1a1a22;
+            --border: #1e1e28;
+            --purple-400: #a78bfa;
+            --purple-500: #8b5cf6;
+            --purple-600: #7c3aed;
+            --purple-700: #6d28d9;
+            --text-primary: #f0f0f4;
+            --text-secondary: #9090a0;
+            --text-muted: #5a5a6e;
+            --green: #4ade80;
+            --blue: #60a5fa;
+            --orange: #fb923c;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 16px 0;
+            background: rgba(8,8,10,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        nav .nav-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo { text-decoration: none; }
+        .logo-img { height: 44px; width: auto; display: block; }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            transition: all 0.25s;
+        }
+        .btn-back:hover {
+            border-color: var(--purple-600);
+            background: var(--bg-card-hover);
+        }
+
+        .page-header {
+            padding: 160px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 80px; left: 50%;
+            transform: translateX(-50%);
+            width: 500px; height: 400px;
+            background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .page-header h1 {
+            font-size: clamp(32px, 5vw, 44px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        .page-header h1 span {
+            background: linear-gradient(135deg, var(--purple-400), #e879f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* ── CONTACT CHANNELS ── */
+        .channels {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        .channel-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 36px 28px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+        .channel-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .channel-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(124,58,237,0.3);
+        }
+        .channel-card:hover::before { opacity: 1; }
+
+        .channel-card.discord::before { background: linear-gradient(90deg, #5865f2, #7289da); }
+        .channel-card.telegram::before { background: linear-gradient(90deg, #0088cc, #29b6f6); }
+        .channel-card.email::before { background: linear-gradient(90deg, var(--purple-600), #e879f9); }
+
+        .channel-icon {
+            width: 64px; height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+        }
+        .channel-card.discord .channel-icon { background: rgba(88,101,242,0.15); }
+        .channel-card.telegram .channel-icon { background: rgba(0,136,204,0.15); }
+        .channel-card.email .channel-icon { background: rgba(124,58,237,0.15); }
+
+        .channel-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .channel-card .channel-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .channel-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .channel-card.discord .channel-tag {
+            background: rgba(88,101,242,0.1);
+            color: #7289da;
+        }
+        .channel-card.telegram .channel-tag {
+            background: rgba(0,136,204,0.1);
+            color: #29b6f6;
+        }
+        .channel-card.email .channel-tag {
+            background: rgba(124,58,237,0.1);
+            color: var(--purple-400);
+        }
+        .channel-handle {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* ── INFO GRID ── */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: border-color 0.3s;
+        }
+        .info-card:hover { border-color: rgba(124,58,237,0.25); }
+        .info-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-card h3 .info-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .info-card h3 .info-icon.green { background: rgba(74,222,128,0.12); }
+        .info-card h3 .info-icon.blue { background: rgba(96,165,250,0.12); }
+        .info-card h3 .info-icon.orange { background: rgba(251,146,60,0.12); }
+        .info-card h3 .info-icon.purple { background: rgba(124,58,237,0.12); }
+        .info-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .info-card ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+        .info-card ul li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 5px 0 5px 18px;
+            position: relative;
+            line-height: 1.6;
+        }
+        .info-card ul li::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 13px;
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--purple-600);
+        }
+
+        /* ── FORM SECTION ── */
+        .form-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 48px;
+            margin-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--purple-600), #e879f9, var(--purple-600));
+        }
+        .form-section h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .form-section .form-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 15px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            outline: none;
+            width: 100%;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--purple-600);
+            box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-muted);
+        }
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a5a6e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+            cursor: pointer;
+        }
+        .form-group select option {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+        .form-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+        }
+        .form-note {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple-600), var(--purple-700));
+            color: white;
+            box-shadow: 0 0 20px rgba(124,58,237,0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 32px rgba(124,58,237,0.4);
+        }
+
+        /* Success message */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .form-success.show { display: block; }
+        .form-success .check {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            background: rgba(74,222,128,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 20px;
+        }
+        .form-success h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .form-success p {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+        }
+        .footer-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-text { font-size: 13px; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .channels { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-section { padding: 28px; }
+            .form-actions { flex-direction: column; gap: 12px; }
+            .btn { width: 100%; justify-content: center; }
+            .footer-content { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo"><img src="maikol-logo.png" alt="MAIKOL" class="logo-img"></a>
+            <a href="index.html" class="btn-back">&#8592; Volver</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Contacta con <span>Nosotros</span></h1>
+            <p>Estamos aqui para ayudarte. Elige el canal que prefieras y te responderemos lo antes posible.</p>
+        </div>
+
+        <!-- CHANNELS -->
+        <div class="channels">
+            <a href="#" class="channel-card discord">
+                <div class="channel-icon">&#128172;</div>
+                <h3>Discord</h3>
+                <p class="channel-desc">La forma mas rapida de contactarnos. Soporte en tiempo real y comunidad activa.</p>
+                <div class="channel-tag">&#9889; Respuesta rapida</div>
+                <br>
+                <span class="channel-handle">MAIKOL Server</span>
+            </a>
+
+            <a href="#" class="channel-card telegram">
+                <div class="channel-icon">&#9993;</div>
+                <h3>Telegram</h3>
+                <p class="channel-desc">Canal directo para consultas, actualizaciones y soporte personalizado.</p>
+                <div class="channel-tag">&#128274; Canal privado</div>
+                <br>
+                <span class="channel-handle">@MAIKOLSpoof</span>
+            </a>
+
+            <a href="#" class="channel-card email">
+                <div class="channel-icon">&#128231;</div>
+                <h3>Formulario</h3>
+                <p class="channel-desc">Para consultas detalladas, reportes de errores o solicitudes especiales.</p>
+                <div class="channel-tag">&#128203; Detallado</div>
+                <br>
+                <span class="channel-handle">Formulario abajo</span>
+            </a>
+        </div>
+
+        <!-- INFO GRID -->
+        <div class="info-grid">
+            <div class="info-card">
+                <h3><span class="info-icon green">&#9201;</span> Tiempo de Respuesta</h3>
+                <p>Nuestro equipo responde en las siguientes franjas horarias:</p>
+                <ul>
+                    <li><strong style="color: var(--text-primary);">Discord:</strong> Menos de 2 horas</li>
+                    <li><strong style="color: var(--text-primary);">Telegram:</strong> Menos de 4 horas</li>
+                    <li><strong style="color: var(--text-primary);">Formulario:</strong> Menos de 24 horas</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><span class="info-icon blue">&#128197;</span> Horario de Atencion</h3>
+                <p>Ofrecemos soporte todos los dias:</p>
+                <ul>
+                    <li><strong style="color: var(--text-primary);">Lunes a Viernes:</strong> 10:00 - 00:00 (UTC-5)</li>
+                    <li><strong style="color: var(--text-primary);">Sabados y Domingos:</strong> 12:00 - 22:00 (UTC-5)</li>
+                    <li>Emergencias se atienden fuera de horario</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><span class="info-icon orange">&#128161;</span> Antes de Contactar</h3>
+                <p>Para resolver tu consulta mas rapido:</p>
+                <ul>
+                    <li>Revisa la seccion de <a href="faq.html" style="color: var(--purple-400); text-decoration: none;">Preguntas Frecuentes</a></li>
+                    <li>Ten a mano tu plan y fecha de compra</li>
+                    <li>Si es un error, prepara una captura de pantalla</li>
+                    <li>Describe el problema con el mayor detalle posible</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><span class="info-icon purple">&#128737;</span> Soporte Prioritario</h3>
+                <p>Los usuarios del plan Lifetime tienen acceso a:</p>
+                <ul>
+                    <li>Canal de soporte exclusivo en Discord</li>
+                    <li>Tiempo de respuesta garantizado menor a 1 hora</li>
+                    <li>Sesiones de asistencia remota si es necesario</li>
+                    <li>Acceso anticipado a parches y actualizaciones</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- CONTACT FORM -->
+        <div class="form-section">
+            <div id="formContent">
+                <h2>Enviar un Mensaje</h2>
+                <p class="form-desc">Completa el formulario y te responderemos por el medio que prefieras.</p>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" id="fname" placeholder="Tu nombre o alias">
+                    </div>
+                    <div class="form-group">
+                        <label>Contacto (Discord / Telegram)</label>
+                        <input type="text" id="fcontact" placeholder="Tu usuario de Discord o Telegram">
+                    </div>
+                    <div class="form-group">
+                        <label>Asunto</label>
+                        <select id="fsubject">
+                            <option value="" disabled selected>Selecciona un tema</option>
+                            <option value="compra">Consulta de compra</option>
+                            <option value="soporte">Soporte tecnico</option>
+                            <option value="bug">Reportar un error</option>
+                            <option value="reembolso">Solicitud de reembolso</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Plan</label>
+                        <select id="fplan">
+                            <option value="" disabled selected>Tu plan actual</option>
+                            <option value="ninguno">Aun no he comprado</option>
+                            <option value="basico">Basico ($5)</option>
+                            <option value="premium">Premium ($10)</option>
+                            <option value="lifetime">Lifetime ($20)</option>
+                        </select>
+                    </div>
+                    <div class="form-group full">
+                        <label>Mensaje</label>
+                        <textarea id="fmessage" placeholder="Describe tu consulta con el mayor detalle posible. Si es un error, incluye los pasos para reproducirlo."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <span class="form-note">* Los mensajes se responden en orden de llegada</span>
+                        <button class="btn btn-primary" onclick="submitForm()">Enviar Mensaje</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-success" id="formSuccess">
+                <div class="check">&#10003;</div>
+                <h3>Mensaje Enviado</h3>
+                <p>Gracias por contactarnos. Te responderemos lo antes posible por el medio que indicaste.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">2024 - 2026 MAIKOL Spoof. Todos los derechos reservados.</div>
+            <div class="footer-links">
+                <a href="index.html">Inicio</a>
+                <a href="faq.html">FAQ</a>
+                <a href="terminos.html">Terminos</a>
+                <a href="privacidad.html">Privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function submitForm() {
+            var name = document.getElementById('fname').value.trim();
+            var contact = document.getElementById('fcontact').value.trim();
+            var message = document.getElementById('fmessage').value.trim();
+
+            if (!name || !contact || !message) {
+                alert('Por favor completa al menos tu nombre, contacto y mensaje.');
+                return;
+            }
+
+            document.getElementById('formContent').style.display = 'none';
+            document.getElementById('formSuccess').classList.add('show');
+        }
+    </script>
+
+</body>
+</html>

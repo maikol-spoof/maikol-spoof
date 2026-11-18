@@ -1,0 +1,14 @@
+# Solo subir archivos del sitio web
+*
+!.gitignore
+!*.html
+!*.css
+!*.js
+!*.png
+!*.jpg
+!*.ico
+!*.svg
+!maikol-logo.png
+!maikol-hero.png
+!favicon.ico
+!maikol-spoof.ico

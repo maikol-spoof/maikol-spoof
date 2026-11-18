@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas Frecuentes - MAIKOL FiveM Spoof</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #08080a;
+            --bg-secondary: #0f0f13;
+            --bg-card: #131318;
+            --bg-card-hover: #1a1a22;
+            --border: #1e1e28;
+            --purple-400: #a78bfa;
+            --purple-600: #7c3aed;
+            --purple-700: #6d28d9;
+            --text-primary: #f0f0f4;
+            --text-secondary: #9090a0;
+            --text-muted: #5a5a6e;
+            --green: #4ade80;
+            --blue: #60a5fa;
+            --orange: #fb923c;
+            --red: #f87171;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 16px 0;
+            background: rgba(8,8,10,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        nav .nav-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo { text-decoration: none; }
+        .logo-img { height: 44px; width: auto; display: block; }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            transition: all 0.25s;
+        }
+        .btn-back:hover {
+            border-color: var(--purple-600);
+            background: var(--bg-card-hover);
+        }
+
+        .page-header {
+            padding: 160px 0 48px;
+            text-align: center;
+            position: relative;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 80px; left: 50%;
+            transform: translateX(-50%);
+            width: 500px; height: 400px;
+            background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .page-header h1 {
+            font-size: clamp(32px, 5vw, 44px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        .page-header h1 span {
+            background: linear-gradient(135deg, var(--purple-400), #e879f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Category filter tabs */
+        .cat-tabs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 36px 0 48px;
+        }
+        .cat-tab {
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            transition: all 0.25s;
+        }
+        .cat-tab:hover {
+            border-color: var(--purple-600);
+            color: var(--text-primary);
+        }
+        .cat-tab.active {
+            background: linear-gradient(135deg, var(--purple-600), var(--purple-700));
+            border-color: var(--purple-600);
+            color: white;
+            box-shadow: 0 0 16px rgba(124,58,237,0.25);
+        }
+
+        /* FAQ sections */
+        .faq-category {
+            margin-bottom: 48px;
+        }
+        .faq-category-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--purple-400);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .faq-category-title .cat-icon {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .faq-category-title .cat-icon.purple { background: rgba(124,58,237,0.15); }
+        .faq-category-title .cat-icon.blue { background: rgba(96,165,250,0.15); }
+        .faq-category-title .cat-icon.green { background: rgba(74,222,128,0.15); }
+        .faq-category-title .cat-icon.orange { background: rgba(251,146,60,0.15); }
+        .faq-category-title .cat-icon.red { background: rgba(248,113,113,0.15); }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+        .faq-item:hover {
+            border-color: rgba(124,58,237,0.25);
+        }
+        .faq-item.open {
+            border-color: rgba(124,58,237,0.35);
+        }
+        .faq-question {
+            padding: 22px 28px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            transition: background 0.2s;
+        }
+        .faq-question:hover {
+            background: var(--bg-card-hover);
+        }
+        .faq-question h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+        .faq-item.open .faq-question h3 {
+            color: var(--purple-400);
+        }
+        .faq-arrow {
+            width: 28px; height: 28px;
+            border-radius: 8px;
+            background: rgba(124,58,237,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--purple-400);
+            flex-shrink: 0;
+            transition: transform 0.3s, background 0.3s;
+        }
+        .faq-item.open .faq-arrow {
+            transform: rotate(180deg);
+            background: rgba(124,58,237,0.2);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+        .faq-answer-inner {
+            padding: 0 28px 24px;
+        }
+        .faq-answer-inner p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        .faq-answer-inner p:last-child { margin-bottom: 0; }
+        .faq-answer-inner ul {
+            list-style: none;
+            margin: 8px 0;
+        }
+        .faq-answer-inner ul li {
+            font-size: 15px;
+            color: var(--text-secondary);
+            padding: 4px 0 4px 20px;
+            position: relative;
+            line-height: 1.7;
+        }
+        .faq-answer-inner ul li::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 13px;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--purple-600);
+        }
+        .faq-answer-inner .tip {
+            background: rgba(74,222,128,0.06);
+            border: 1px solid rgba(74,222,128,0.12);
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-top: 12px;
+        }
+        .faq-answer-inner .tip p {
+            color: var(--green);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .faq-answer-inner .warn {
+            background: rgba(251,146,60,0.06);
+            border: 1px solid rgba(251,146,60,0.12);
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-top: 12px;
+        }
+        .faq-answer-inner .warn p {
+            color: var(--orange);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* CTA bottom */
+        .faq-cta {
+            text-align: center;
+            padding: 60px 0 100px;
+        }
+        .faq-cta h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .faq-cta p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+        .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple-600), var(--purple-700));
+            color: white;
+            box-shadow: 0 0 20px rgba(124,58,237,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(124,58,237,0.4); }
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--purple-600); }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+        }
+        .footer-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-text { font-size: 13px; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .faq-question { padding: 18px 20px; }
+            .faq-answer-inner { padding: 0 20px 20px; }
+            .cat-tabs { gap: 8px; }
+            .cat-tab { padding: 6px 14px; font-size: 12px; }
+            .footer-content { flex-direction: column; gap: 16px; text-align: center; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo"><img src="maikol-logo.png" alt="MAIKOL" class="logo-img"></a>
+            <a href="index.html" class="btn-back">&#8592; Volver</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Preguntas <span>Frecuentes</span></h1>
+            <p>Todo lo que necesitas saber sobre MAIKOL FiveM Spoof antes y despues de la compra.</p>
+        </div>
+
+        <!-- Category tabs -->
+        <div class="cat-tabs">
+            <span class="cat-tab active" onclick="filterFaq('all')">Todas</span>
+            <span class="cat-tab" onclick="filterFaq('general')">General</span>
+            <span class="cat-tab" onclick="filterFaq('tecnico')">Tecnico</span>
+            <span class="cat-tab" onclick="filterFaq('compra')">Compra</span>
+            <span class="cat-tab" onclick="filterFaq('soporte')">Soporte</span>
+        </div>
+
+        <!-- GENERAL -->
+        <div class="faq-category" data-cat="general">
+            <div class="faq-category-title">
+                <span class="cat-icon purple">&#9881;</span>
+                General
+            </div>
+
+            <div class="faq-item" data-cat="general">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Que es MAIKOL FiveM Spoof?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>MAIKOL FiveM Spoof es una herramienta de privacidad para Windows que limpia y rota los identificadores de hardware que FiveM utiliza para rastrear tu sistema. Opera en 5 fases automatizadas y cuenta con una interfaz grafica facil de usar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="general">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Es compatible con Windows 10 y Windows 11?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Si, funciona perfectamente en ambas versiones de Windows, tanto en sistemas de 64 bits como en las versiones mas recientes. Ha sido probado en Windows 10 21H2+ y Windows 11 22H2+.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="general">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Necesito conocimientos tecnicos para usarlo?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>No. La interfaz grafica hace todo automaticamente. Solo necesitas:</p>
+                        <ul>
+                            <li>Cerrar FiveM y GTA V</li>
+                            <li>Ejecutar MAIKOL como administrador</li>
+                            <li>Pulsar el boton "Ejecutar Todo"</li>
+                            <li>Reiniciar tu PC</li>
+                        </ul>
+                        <div class="tip">
+                            <p>El software incluye un log de actividad en tiempo real donde puedes ver cada operacion que se realiza.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="general">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Es seguro para mi PC?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Si. La herramienta solo modifica valores de registro de Windows y limpia archivos temporales. No instala drivers, no modifica archivos del sistema operativo y no deja servicios en segundo plano. Puedes verificar cada cambio con la funcion de verificacion HWID incluida.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="general">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>El antivirus lo detecta como amenaza?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Algunos antivirus pueden marcar scripts de PowerShell que modifican el registro como potencialmente peligrosos (falso positivo). Esto es normal para herramientas que modifican configuraciones del sistema.</p>
+                        <div class="warn">
+                            <p>Si tu antivirus lo bloquea, agrega la carpeta del software a las exclusiones de tu antivirus antes de ejecutarlo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TECNICO -->
+        <div class="faq-category" data-cat="tecnico">
+            <div class="faq-category-title">
+                <span class="cat-icon blue">&#128187;</span>
+                Tecnico
+            </div>
+
+            <div class="faq-item" data-cat="tecnico">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Que identificadores modifica exactamente?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>MAIKOL rota los siguientes identificadores en 5 fases:</p>
+                        <ul>
+                            <li><strong style="color: var(--text-primary);">Fase 1:</strong> Limpieza de datos FiveM, cache, registros y tokens de Rockstar Social Club</li>
+                            <li><strong style="color: var(--text-primary);">Fase 2:</strong> Rotacion de MachineGuid, ProductId, InstallDate, HwProfileGuid y serial SMBIOS</li>
+                            <li><strong style="color: var(--text-primary);">Fase 3:</strong> Cambio de MAC en todos los adaptadores, limpieza DNS y renovacion DHCP</li>
+                            <li><strong style="color: var(--text-primary);">Fase 4:</strong> Limpieza de temporales, prefetch, archivos recientes, cache de Discord y Steam</li>
+                            <li><strong style="color: var(--text-primary);">Fase 5:</strong> Generacion de script de inicio limpio para mantenimiento automatico</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="tecnico">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Funciona con todos los servidores de FiveM?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Funciona con la gran mayoria de servidores que utilizan los identificadores estandar de FiveM para detectar jugadores. Algunos servidores con protecciones muy avanzadas o personalizadas pueden requerir pasos adicionales.</p>
+                        <div class="tip">
+                            <p>Si un servidor especifico no funciona, contacta soporte y te ayudaremos con tu caso particular.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="tecnico">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Necesito reiniciar el PC despues de usarlo?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Si, es necesario reiniciar despues de ejecutar el spoof. Algunos cambios de registro y la rotacion de MAC de los adaptadores de red solo surten efecto completo tras un reinicio del sistema.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="tecnico">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Puedo ejecutar las fases individualmente?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Si. La interfaz grafica incluye botones individuales para cada una de las 5 fases, ademas del boton "Ejecutar Todo" que las ejecuta todas en secuencia. Tambien puedes ejecutar la verificacion HWID de forma independiente para comprobar el estado actual de tus identificadores.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="tecnico">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Afecta a otros juegos o programas?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Los cambios de identificadores de hardware son a nivel de sistema, por lo que pueden afectar a licencias de software que estan vinculadas al hardware. En la practica:</p>
+                        <ul>
+                            <li>Windows y Office no se ven afectados en la mayoria de los casos</li>
+                            <li>Otros juegos con anti-cheat pueden requerir revalidacion</li>
+                            <li>Algunas licencias de software pueden necesitar reactivacion</li>
+                        </ul>
+                        <div class="warn">
+                            <p>Si tienes software con licencias vinculadas al hardware, ten en cuenta este efecto antes de ejecutar el spoof.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="tecnico">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Puedo revertir los cambios?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Los valores de registro se sobreescriben con nuevos valores aleatorios. No se restauran automaticamente a los originales. Sin embargo, los valores nuevos funcionan de la misma forma que los anteriores para el sistema operativo.</p>
+                        <div class="tip">
+                            <p>Recomendamos usar la funcion de verificacion HWID antes del spoof para guardar una captura de tus valores originales si deseas conservarlos como referencia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="tecnico">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Necesito crear una nueva cuenta de FiveM?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Si. Despues de ejecutar el spoof y reiniciar, necesitas crear una nueva cuenta Cfx.re (la cuenta de FiveM). Tu cuenta anterior esta asociada a los identificadores viejos. Usa un correo electronico nuevo para la nueva cuenta.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPRA -->
+        <div class="faq-category" data-cat="compra">
+            <div class="faq-category-title">
+                <span class="cat-icon green">&#128176;</span>
+                Compra y Planes
+            </div>
+
+            <div class="faq-item" data-cat="compra">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Que metodos de pago aceptan?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Aceptamos los siguientes metodos de pago:</p>
+                        <ul>
+                            <li>PayPal</li>
+                            <li>Criptomonedas (Bitcoin, Ethereum, USDT, etc.)</li>
+                            <li>Otros metodos bajo consulta</li>
+                        </ul>
+                        <p>Contacta por Discord o Telegram para coordinar el pago con tu metodo preferido.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="compra">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Cual es la diferencia entre los planes?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <ul>
+                            <li><strong style="color: var(--text-primary);">Basico ($5):</strong> Un solo uso del software. Ideal si solo necesitas resolver un ban puntual</li>
+                            <li><strong style="color: var(--text-primary);">Premium ($10):</strong> Usos ilimitados + soporte por Discord + 3 meses de actualizaciones. Recomendado para la mayoria</li>
+                            <li><strong style="color: var(--text-primary);">Lifetime ($20):</strong> Todo lo del Premium + actualizaciones de por vida + soporte prioritario + acceso anticipado a nuevas versiones</li>
+                        </ul>
+                        <div class="tip">
+                            <p>El plan Premium es el mas popular y ofrece la mejor relacion calidad-precio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="compra">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Ofrecen reembolsos?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Debido a la naturaleza digital del producto, no ofrecemos reembolsos una vez entregado el software. Sin embargo, si el software presenta un defecto verificable, proporcionaremos soporte tecnico para resolver el problema. Si no se puede resolver, se evaluara un reembolso a discrecion del vendedor.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="compra">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Puedo compartir mi licencia con amigos?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>No. La licencia es personal e intransferible. Cada usuario debe adquirir su propia licencia. Compartir, revender o redistribuir el software viola los terminos de uso y puede resultar en la revocacion de la licencia sin reembolso.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="compra">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Como recibo el software despues de pagar?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Una vez confirmado el pago, recibiras el software a traves del mismo canal de comunicacion (Discord o Telegram). La entrega es inmediata tras la verificacion del pago, generalmente en menos de 24 horas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOPORTE -->
+        <div class="faq-category" data-cat="soporte">
+            <div class="faq-category-title">
+                <span class="cat-icon orange">&#128172;</span>
+                Soporte
+            </div>
+
+            <div class="faq-item" data-cat="soporte">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Como contacto al soporte tecnico?</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Puedes contactarnos a traves de nuestros canales oficiales:</p>
+                        <ul>
+                            <li><strong style="color: var(--text-primary);">Discord:</strong> Canal oficial de MAIKOL (respuesta mas rapida)</li>
+                            <li><strong style="color: var(--text-primary);">Telegram:</strong> Canal oficial de MAIKOL</li>
+                        </ul>
+                        <p>El horario de soporte es 24/7, con tiempo de respuesta habitual de menos de 2 horas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="soporte">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>El software dejo de funcionar despues de una actualizacion de FiveM</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>FiveM actualiza periodicamente sus metodos de deteccion. Si el software deja de ser efectivo tras una actualizacion de FiveM:</p>
+                        <ul>
+                            <li>Verifica que tienes la ultima version del software</li>
+                            <li>Contacta soporte para recibir la actualizacion correspondiente</li>
+                            <li>Los usuarios Premium y Lifetime reciben actualizaciones automaticamente</li>
+                        </ul>
+                        <div class="tip">
+                            <p>Las actualizaciones se publican en Discord y Telegram tan pronto como estan disponibles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="soporte">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Me banearon otra vez despues de usar el spoof</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Si recibiste un nuevo ban despues de usar el spoof, puede deberse a:</p>
+                        <ul>
+                            <li>No reiniciaste el PC despues de ejecutar el spoof</li>
+                            <li>Usaste la misma cuenta de FiveM (Cfx.re) anterior</li>
+                            <li>Usaste el mismo correo electronico o cuenta de Discord vinculada</li>
+                            <li>El servidor usa metodos de deteccion adicionales no estandar</li>
+                        </ul>
+                        <p>Contacta soporte con los detalles de tu caso para asistencia personalizada.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-cat="soporte">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>El software muestra un error al ejecutarse</h3>
+                    <span class="faq-arrow">&#9660;</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        <p>Los errores mas comunes y sus soluciones:</p>
+                        <ul>
+                            <li><strong style="color: var(--text-primary);">Error de permisos:</strong> Asegurate de ejecutar como administrador (clic derecho &gt; Ejecutar como administrador)</li>
+                            <li><strong style="color: var(--text-primary);">Politica de ejecucion:</strong> Abre PowerShell como admin y ejecuta: Set-ExecutionPolicy Bypass -Scope Process</li>
+                            <li><strong style="color: var(--text-primary);">Antivirus bloquea:</strong> Agrega la carpeta del software a las exclusiones del antivirus</li>
+                            <li><strong style="color: var(--text-primary);">FiveM abierto:</strong> Cierra FiveM y GTA V completamente antes de ejecutar</li>
+                        </ul>
+                        <div class="warn">
+                            <p>Si el error persiste despues de estas soluciones, envia una captura del error al soporte para ayuda especializada.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="faq-cta">
+            <h2>No encontraste tu <span style="color: var(--purple-400);">respuesta</span>?</h2>
+            <p>Contactanos directamente y te ayudaremos con tu consulta.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">Discord</a>
+                <a href="#" class="btn btn-secondary">Telegram</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">2024 - 2026 MAIKOL Spoof. Todos los derechos reservados.</div>
+            <div class="footer-links">
+                <a href="index.html">Inicio</a>
+                <a href="terminos.html">Terminos</a>
+                <a href="privacidad.html">Privacidad</a>
+                <a href="#">Discord</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFaq(el) {
+            var item = el.parentElement;
+            var wasOpen = item.classList.contains('open');
+            item.classList.toggle('open');
+        }
+
+        function filterFaq(cat) {
+            var tabs = document.querySelectorAll('.cat-tab');
+            tabs.forEach(function(t) { t.classList.remove('active'); });
+            event.target.classList.add('active');
+
+            var categories = document.querySelectorAll('.faq-category');
+            categories.forEach(function(c) {
+                if (cat === 'all' || c.getAttribute('data-cat') === cat) {
+                    c.style.display = '';
+                } else {
+                    c.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

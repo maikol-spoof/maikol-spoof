@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicio - MAIKOL FiveM Spoof</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #08080a;
+            --bg-secondary: #0f0f13;
+            --bg-card: #131318;
+            --bg-card-hover: #1a1a22;
+            --border: #1e1e28;
+            --purple-400: #a78bfa;
+            --purple-500: #8b5cf6;
+            --purple-600: #7c3aed;
+            --purple-700: #6d28d9;
+            --text-primary: #f0f0f4;
+            --text-secondary: #9090a0;
+            --text-muted: #5a5a6e;
+            --green: #4ade80;
+            --blue: #60a5fa;
+            --orange: #fb923c;
+            --red: #f87171;
+            --cyan: #67e8f9;
+            --yellow: #fbbf24;
+            --pink: #f472b6;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 16px 0;
+            background: rgba(8,8,10,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        nav .nav-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo { text-decoration: none; }
+        .logo-img { height: 44px; width: auto; display: block; }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            transition: all 0.25s;
+        }
+        .btn-back:hover {
+            border-color: var(--purple-600);
+            background: var(--bg-card-hover);
+        }
+
+        /* HEADER */
+        .page-header {
+            padding: 160px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 80px; left: 50%;
+            transform: translateX(-50%);
+            width: 500px; height: 400px;
+            background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .page-header h1 {
+            font-size: clamp(32px, 5vw, 44px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        .page-header h1 span {
+            background: linear-gradient(135deg, var(--purple-400), #e879f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* SECTION */
+        .section-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--purple-400);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .section-title {
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .section-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 560px;
+            margin: 0 auto 48px;
+        }
+
+        /* HERO SERVICES */
+        .hero-services {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 80px;
+        }
+        .hero-svc {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px 28px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-svc:hover {
+            border-color: rgba(124,58,237,0.35);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .hero-svc::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+        .hero-svc.svc-purple::before { background: linear-gradient(90deg, var(--purple-600), #e879f9); }
+        .hero-svc.svc-green::before { background: linear-gradient(90deg, var(--green), var(--cyan)); }
+        .hero-svc.svc-blue::before { background: linear-gradient(90deg, var(--blue), var(--cyan)); }
+
+        .hero-svc-icon {
+            width: 72px; height: 72px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .hero-svc-icon.si-purple { background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(139,92,246,0.08)); border: 1px solid rgba(124,58,237,0.25); }
+        .hero-svc-icon.si-green { background: linear-gradient(135deg, rgba(74,222,128,0.15), rgba(74,222,128,0.08)); border: 1px solid rgba(74,222,128,0.25); }
+        .hero-svc-icon.si-blue { background: linear-gradient(135deg, rgba(96,165,250,0.15), rgba(96,165,250,0.08)); border: 1px solid rgba(96,165,250,0.25); }
+
+        .hero-svc h3 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+        .hero-svc p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; }
+        .hero-svc .svc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .svc-badge.popular { background: rgba(124,58,237,0.1); color: var(--purple-400); }
+        .svc-badge.included { background: rgba(74,222,128,0.1); color: var(--green); }
+        .svc-badge.premium-b { background: rgba(251,191,36,0.1); color: var(--yellow); }
+
+        /* DETAILED SERVICE CARDS */
+        .detail-services { margin-bottom: 80px; }
+        .dsvc-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 32px;
+            transition: border-color 0.3s;
+        }
+        .dsvc-card:hover { border-color: rgba(124,58,237,0.25); }
+
+        .dsvc-num {
+            width: 56px; height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+        .dsvc-num.dn-1 { background: rgba(124,58,237,0.12); color: var(--purple-400); }
+        .dsvc-num.dn-2 { background: rgba(96,165,250,0.12); color: var(--blue); }
+        .dsvc-num.dn-3 { background: rgba(74,222,128,0.12); color: var(--green); }
+        .dsvc-num.dn-4 { background: rgba(251,146,60,0.12); color: var(--orange); }
+        .dsvc-num.dn-5 { background: rgba(103,232,249,0.12); color: var(--cyan); }
+        .dsvc-num.dn-6 { background: rgba(244,114,182,0.12); color: var(--pink); }
+
+        .dsvc-body h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .dsvc-body > p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 20px; }
+
+        .dsvc-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .dsvc-feat {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .dsvc-feat .df-icon {
+            color: var(--green);
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        /* COMPARISON TABLE */
+        .compare-section { margin-bottom: 80px; }
+        .compare-table {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .cmp-header {
+            display: grid;
+            grid-template-columns: 1fr 100px 100px 100px;
+            padding: 16px 32px;
+            background: rgba(124,58,237,0.06);
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        .cmp-header span:first-child { text-align: left; }
+        .cmp-row {
+            display: grid;
+            grid-template-columns: 1fr 100px 100px 100px;
+            padding: 16px 32px;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+            text-align: center;
+        }
+        .cmp-row:last-child { border-bottom: none; }
+        .cmp-row:hover { background: rgba(124,58,237,0.03); }
+        .cmp-row span:first-child {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-align: left;
+        }
+        .cmp-yes { color: var(--green); font-size: 16px; }
+        .cmp-no { color: var(--text-muted); font-size: 14px; }
+        .cmp-partial { color: var(--yellow); font-size: 14px; }
+
+        /* SLA SECTION */
+        .sla-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .sla-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green), var(--blue), var(--green));
+        }
+        .sla-section h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sla-section h2 .sla-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: rgba(74,222,128,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .sla-section > p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+        .sla-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .sla-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px 16px;
+            text-align: center;
+        }
+        .sla-val {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+        .sla-val.sv-green { color: var(--green); }
+        .sla-val.sv-blue { color: var(--blue); }
+        .sla-val.sv-purple { color: var(--purple-400); }
+        .sla-val.sv-orange { color: var(--orange); }
+        .sla-label { font-size: 12px; color: var(--text-muted); }
+
+        /* PROCESS */
+        .process-section { margin-bottom: 80px; }
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+        }
+        .proc-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 16px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .proc-step:hover {
+            border-color: rgba(124,58,237,0.3);
+            transform: translateY(-3px);
+        }
+        .proc-num {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: rgba(124,58,237,0.12);
+            border: 2px solid var(--purple-600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--purple-400);
+            margin: 0 auto 12px;
+        }
+        .proc-step h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+        .proc-step p { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+        .proc-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 40px; right: -9px;
+            width: 16px; height: 2px;
+            background: linear-gradient(90deg, var(--purple-600), transparent);
+        }
+
+        /* TRUST */
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 80px;
+        }
+        .trust-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px 16px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+        .trust-card:hover { border-color: rgba(124,58,237,0.25); }
+        .trust-icon { font-size: 28px; margin-bottom: 10px; }
+        .trust-card h5 { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+        .trust-card p { font-size: 12px; color: var(--text-muted); }
+
+        /* CTA */
+        .page-cta {
+            text-align: center;
+            padding: 20px 0 100px;
+        }
+        .page-cta h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
+        .page-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 28px; }
+        .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple-600), var(--purple-700));
+            color: white;
+            box-shadow: 0 0 24px rgba(124,58,237,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(124,58,237,0.45); }
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--purple-600); }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+        }
+        .footer-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-text { font-size: 13px; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-links a {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .hero-services { grid-template-columns: 1fr; }
+            .dsvc-card { grid-template-columns: 1fr; gap: 16px; padding: 28px; }
+            .dsvc-features { grid-template-columns: 1fr; }
+            .cmp-header, .cmp-row { grid-template-columns: 1fr 70px 70px 70px; padding: 12px 16px; font-size: 12px; }
+            .sla-grid { grid-template-columns: 1fr 1fr; }
+            .sla-section { padding: 28px; }
+            .process-steps { grid-template-columns: 1fr 1fr; }
+            .proc-step:not(:last-child)::after { display: none; }
+            .trust-grid { grid-template-columns: 1fr 1fr; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .footer-content { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo"><img src="maikol-logo.png" alt="MAIKOL" class="logo-img"></a>
+            <a href="index.html" class="btn-back">&#8592; Volver</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Nuestros <span>Servicios</span></h1>
+            <p>Soluciones completas para evitar bans de HWID en FiveM. Desde el spoof basico hasta soporte personalizado con asistencia remota.</p>
+        </div>
+
+        <!-- HERO SERVICES -->
+        <div class="hero-services">
+            <div class="hero-svc svc-purple">
+                <div class="hero-svc-icon si-purple">&#128737;</div>
+                <h3>Spoof HWID</h3>
+                <p>Rotacion completa de todos los identificadores de hardware que FiveM utiliza para rastrear tu sistema.</p>
+                <span class="svc-badge popular">Servicio Principal</span>
+            </div>
+            <div class="hero-svc svc-green">
+                <div class="hero-svc-icon si-green">&#128172;</div>
+                <h3>Soporte Tecnico</h3>
+                <p>Asistencia por Discord y Telegram para resolver cualquier problema de configuracion o ejecucion.</p>
+                <span class="svc-badge included">Incluido</span>
+            </div>
+            <div class="hero-svc svc-blue">
+                <div class="hero-svc-icon si-blue">&#128187;</div>
+                <h3>Asistencia Remota</h3>
+                <p>Sesion remota donde nuestro equipo ejecuta y configura MAIKOL directamente en tu PC.</p>
+                <span class="svc-badge premium-b">Premium</span>
+            </div>
+        </div>
+
+        <!-- DETAILED SERVICES -->
+        <div class="detail-services">
+            <div class="section-label">Detalle</div>
+            <h2 class="section-title">Que Incluye Cada Servicio</h2>
+            <p class="section-desc">Desglose completo de todo lo que ofrecemos con cada plan.</p>
+
+            <div class="dsvc-card">
+                <div class="dsvc-num dn-1">1</div>
+                <div class="dsvc-body">
+                    <h3>Rotacion de Identidad de Hardware</h3>
+                    <p>Cambiamos todos los identificadores que FiveM y los servidores leen para vincular tu cuenta a tu maquina. Cada ejecucion genera valores completamente nuevos y unicos.</p>
+                    <div class="dsvc-features">
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> MachineGuid nuevo cada ejecucion</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> ProductId con formato valido</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> InstallDate aleatorio</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> HwProfileGuid rotado</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Serial SMBIOS via registro</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Nombre de equipo generado</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dsvc-card">
+                <div class="dsvc-num dn-2">2</div>
+                <div class="dsvc-body">
+                    <h3>Spoof de Identidad de Red</h3>
+                    <p>Rotamos las direcciones MAC de todos tus adaptadores de red fisicos, limpiamos la cache DNS y renovamos la configuracion DHCP para una identidad de red completamente nueva.</p>
+                    <div class="dsvc-features">
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> MAC aleatoria por adaptador</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Ciclo automatico de adaptador</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Flush de cache DNS</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Renovacion DHCP completa</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dsvc-card">
+                <div class="dsvc-num dn-3">3</div>
+                <div class="dsvc-body">
+                    <h3>Limpieza Completa de FiveM</h3>
+                    <p>Eliminamos todos los datos locales de FiveM incluyendo cache, configuracion, tokens de licencia, registros de CitizenFX y datos de Rockstar Social Club.</p>
+                    <div class="dsvc-features">
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Cache y datos de FiveM</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Tokens de autenticacion</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Registros CitizenFX</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Datos de Rockstar Social Club</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dsvc-card">
+                <div class="dsvc-num dn-4">4</div>
+                <div class="dsvc-body">
+                    <h3>Eliminacion de Rastros Digitales</h3>
+                    <p>Limpiamos archivos temporales, prefetch, cache de Discord y Steam, y logs de eventos de Windows que podrian vincular tu identidad anterior.</p>
+                    <div class="dsvc-features">
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Archivos temporales y prefetch</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Cache de Discord y Steam</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Logs de eventos de Windows</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Datos de sesion residuales</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dsvc-card">
+                <div class="dsvc-num dn-5">5</div>
+                <div class="dsvc-body">
+                    <h3>Verificacion y Mantenimiento</h3>
+                    <p>Herramienta de verificacion integrada que muestra el estado de cada identificador antes y despues del spoof, mas un script de inicio limpio para mantenimiento automatico.</p>
+                    <div class="dsvc-features">
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Reporte HWID completo</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Comparacion antes/despues</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Script de inicio limpio</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Mantenimiento automatico</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dsvc-card">
+                <div class="dsvc-num dn-6">6</div>
+                <div class="dsvc-body">
+                    <h3>Soporte y Asistencia</h3>
+                    <p>Equipo de soporte disponible por Discord y Telegram. Los usuarios Premium tienen acceso a soporte VIP 24/7 y sesiones de asistencia remota cuando sea necesario.</p>
+                    <div class="dsvc-features">
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Soporte por Discord</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Soporte por Telegram</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Soporte VIP 24/7 (Premium)</div>
+                        <div class="dsvc-feat"><span class="df-icon">&#10003;</span> Asistencia remota (Premium)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPARISON TABLE -->
+        <div class="compare-section">
+            <div class="section-label">Comparacion</div>
+            <h2 class="section-title">Servicios por Plan</h2>
+            <p class="section-desc">Lo que incluye cada plan para que elijas el que mejor se adapte a ti.</p>
+
+            <div class="compare-table">
+                <div class="cmp-header">
+                    <span>Servicio</span>
+                    <span>Basico</span>
+                    <span>Estandar</span>
+                    <span>Premium</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Rotacion HWID completa</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Spoof de red (MAC/DNS/DHCP)</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Limpieza de FiveM</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Limpieza de rastros</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Verificacion HWID</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Interfaz grafica WPF</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Script de inicio limpio</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Acceso directo en escritorio</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Soporte prioritario</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Actualizaciones de por vida</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Soporte VIP 24/7</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Canal privado Discord</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Acceso anticipado a betas</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+                <div class="cmp-row">
+                    <span>Asistencia remota</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-no">&#8212;</span>
+                    <span class="cmp-yes">&#10003;</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLA -->
+        <div class="sla-section">
+            <h2><span class="sla-icon">&#9889;</span> Compromisos de Servicio</h2>
+            <p>Nuestros estandares de calidad y tiempos de respuesta para cada interaccion.</p>
+
+            <div class="sla-grid">
+                <div class="sla-card">
+                    <div class="sla-val sv-green">98%</div>
+                    <div class="sla-label">Tasa de exito</div>
+                </div>
+                <div class="sla-card">
+                    <div class="sla-val sv-blue">&lt;2h</div>
+                    <div class="sla-label">Respuesta soporte</div>
+                </div>
+                <div class="sla-card">
+                    <div class="sla-val sv-purple">&lt;72h</div>
+                    <div class="sla-label">Parche anti-deteccion</div>
+                </div>
+                <div class="sla-card">
+                    <div class="sla-val sv-orange">48h</div>
+                    <div class="sla-label">Garantia reembolso</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROCESS -->
+        <div class="process-section">
+            <div class="section-label">Proceso</div>
+            <h2 class="section-title">Como Funciona el Servicio</h2>
+            <p class="section-desc">De la compra al juego en 5 pasos simples.</p>
+
+            <div class="process-steps">
+                <div class="proc-step">
+                    <div class="proc-num">1</div>
+                    <h4>Compra</h4>
+                    <p>Elige tu plan y paga por Discord</p>
+                </div>
+                <div class="proc-step">
+                    <div class="proc-num">2</div>
+                    <h4>Descarga</h4>
+                    <p>Recibe tu enlace de descarga</p>
+                </div>
+                <div class="proc-step">
+                    <div class="proc-num">3</div>
+                    <h4>Ejecuta</h4>
+                    <p>Cierra FiveM y ejecuta como admin</p>
+                </div>
+                <div class="proc-step">
+                    <div class="proc-num">4</div>
+                    <h4>Reinicia</h4>
+                    <p>Reinicia tu PC para aplicar</p>
+                </div>
+                <div class="proc-step">
+                    <div class="proc-num">5</div>
+                    <h4>Juega</h4>
+                    <p>Nueva cuenta Cfx.re y a jugar</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRUST -->
+        <div class="trust-grid">
+            <div class="trust-card">
+                <div class="trust-icon">&#128274;</div>
+                <h5>100% Local</h5>
+                <p>Sin conexion a servidores externos</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon">&#128176;</div>
+                <h5>Pago Unico</h5>
+                <p>Sin suscripciones ni cargos ocultos</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon">&#128260;</div>
+                <h5>Siempre Actualizado</h5>
+                <p>Parches rapidos ante cambios de FiveM</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon">&#128100;</div>
+                <h5>2,400+ Usuarios</h5>
+                <p>Comunidad activa y satisfecha</p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="page-cta">
+            <h2>Listo para <span style="color: var(--purple-400);">volver a jugar</span>?</h2>
+            <p>Elige tu plan y empieza a jugar sin restricciones en menos de 5 minutos.</p>
+            <div class="cta-buttons">
+                <a href="index.html#pricing" class="btn btn-primary">Ver Precios</a>
+                <a href="descargas.html" class="btn btn-secondary">Descargar</a>
+                <a href="garantia.html" class="btn btn-secondary">Ver Garantia</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">2024 - 2026 MAIKOL Spoof. Todos los derechos reservados.</div>
+            <div class="footer-links">
+                <a href="index.html">Inicio</a>
+                <a href="como-funciona.html">Como Funciona</a>
+                <a href="descargas.html">Descargas</a>
+                <a href="testimonios.html">Testimonios</a>
+                <a href="garantia.html">Garantia</a>
+                <a href="actualizaciones.html">Actualizaciones</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="faq.html">FAQ</a>
+                <a href="terminos.html">Terminos</a>
+                <a href="privacidad.html">Privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

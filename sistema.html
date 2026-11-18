@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema - MAIKOL FiveM Spoof</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #08080a;
+            --bg-secondary: #0f0f13;
+            --bg-card: #131318;
+            --bg-card-hover: #1a1a22;
+            --bg-code: #0c0c10;
+            --border: #1e1e28;
+            --purple-400: #a78bfa;
+            --purple-500: #8b5cf6;
+            --purple-600: #7c3aed;
+            --purple-700: #6d28d9;
+            --text-primary: #f0f0f4;
+            --text-secondary: #9090a0;
+            --text-muted: #5a5a6e;
+            --green: #4ade80;
+            --blue: #60a5fa;
+            --orange: #fb923c;
+            --red: #f87171;
+            --cyan: #67e8f9;
+            --yellow: #fbbf24;
+            --pink: #f472b6;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 16px 0;
+            background: rgba(8,8,10,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        nav .nav-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo { text-decoration: none; }
+        .logo-img { height: 44px; width: auto; display: block; }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            transition: all 0.25s;
+        }
+        .btn-back:hover {
+            border-color: var(--purple-600);
+            background: var(--bg-card-hover);
+        }
+
+        /* HEADER */
+        .page-header {
+            padding: 160px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 80px; left: 50%;
+            transform: translateX(-50%);
+            width: 500px; height: 400px;
+            background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .page-header h1 {
+            font-size: clamp(32px, 5vw, 44px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        .page-header h1 span {
+            background: linear-gradient(135deg, var(--purple-400), #e879f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        /* SECTION */
+        .section-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--purple-400);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .section-title {
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .section-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 560px;
+            margin: 0 auto 48px;
+        }
+
+        /* ARCHITECTURE HERO */
+        .arch-hero {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 72px;
+            position: relative;
+            overflow: hidden;
+        }
+        .arch-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--purple-600), var(--cyan), #e879f9);
+        }
+        .arch-hero h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .arch-hero h2 .ah-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            background: rgba(124,58,237,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .arch-hero > p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 640px;
+        }
+
+        /* FLOW DIAGRAM */
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+        .flow-node {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px 22px;
+            text-align: center;
+            min-width: 130px;
+            transition: border-color 0.3s;
+        }
+        .flow-node:hover { border-color: rgba(124,58,237,0.4); }
+        .flow-node .fn-icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+        .flow-node h5 { font-size: 13px; font-weight: 700; }
+        .flow-node p { font-size: 11px; color: var(--text-muted); }
+        .flow-arrow {
+            font-size: 18px;
+            color: var(--purple-600);
+            padding: 0 8px;
+            flex-shrink: 0;
+        }
+
+        .arch-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .arch-badge {
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            background: rgba(74,222,128,0.08);
+            border: 1px solid rgba(74,222,128,0.2);
+            color: var(--green);
+        }
+
+        /* VECTORS GRID */
+        .vectors-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 72px;
+        }
+        .vector-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px 24px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .vector-card:hover {
+            border-color: rgba(124,58,237,0.3);
+            transform: translateY(-4px);
+        }
+        .vector-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+        .vector-card.vc-purple::before { background: var(--purple-600); }
+        .vector-card.vc-blue::before { background: var(--blue); }
+        .vector-card.vc-green::before { background: var(--green); }
+        .vector-card.vc-orange::before { background: var(--orange); }
+        .vector-card.vc-cyan::before { background: var(--cyan); }
+        .vector-card.vc-pink::before { background: var(--pink); }
+
+        .vc-icon {
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        .vc-icon.vi-purple { background: rgba(124,58,237,0.12); }
+        .vc-icon.vi-blue { background: rgba(96,165,250,0.12); }
+        .vc-icon.vi-green { background: rgba(74,222,128,0.12); }
+        .vc-icon.vi-orange { background: rgba(251,146,60,0.12); }
+        .vc-icon.vi-cyan { background: rgba(103,232,249,0.12); }
+        .vc-icon.vi-pink { background: rgba(244,114,182,0.12); }
+
+        .vector-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+        .vector-card > p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 14px; }
+
+        .vc-reg {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--purple-400);
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            overflow-x: auto;
+            white-space: nowrap;
+            margin-bottom: 12px;
+        }
+        .vc-reg .rk { color: var(--blue); }
+        .vc-reg .rv { color: var(--green); }
+
+        .vc-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+        .vc-tag {
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .vc-tag.read { background: rgba(248,113,113,0.1); color: var(--red); }
+        .vc-tag.write { background: rgba(74,222,128,0.1); color: var(--green); }
+        .vc-tag.reboot { background: rgba(251,146,60,0.1); color: var(--orange); }
+        .vc-tag.safe { background: rgba(96,165,250,0.1); color: var(--blue); }
+
+        /* DETECTION TABLE */
+        .detect-section { margin-bottom: 72px; }
+        .detect-table {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .dt-header {
+            display: grid;
+            grid-template-columns: 1fr 140px 140px 100px;
+            padding: 16px 32px;
+            background: rgba(124,58,237,0.06);
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+        .dt-row {
+            display: grid;
+            grid-template-columns: 1fr 140px 140px 100px;
+            padding: 16px 32px;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+        .dt-row:last-child { border-bottom: none; }
+        .dt-row:hover { background: rgba(124,58,237,0.03); }
+        .dt-id { font-size: 14px; color: var(--text-secondary); }
+        .dt-method { font-size: 13px; color: var(--text-muted); }
+        .dt-spoof { font-size: 13px; }
+        .dt-badge {
+            display: inline-flex;
+            padding: 3px 12px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .dt-badge.covered { background: rgba(74,222,128,0.1); color: var(--green); }
+        .dt-badge.partial { background: rgba(251,191,36,0.1); color: var(--yellow); }
+
+        /* LAYER SECTION */
+        .layers-section { margin-bottom: 72px; }
+        .layer-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .layer-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 32px;
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 24px;
+            transition: border-color 0.3s;
+        }
+        .layer-card:hover { border-color: rgba(124,58,237,0.25); }
+        .layer-num {
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+        .layer-num.ln-1 { background: rgba(124,58,237,0.12); color: var(--purple-400); }
+        .layer-num.ln-2 { background: rgba(96,165,250,0.12); color: var(--blue); }
+        .layer-num.ln-3 { background: rgba(74,222,128,0.12); color: var(--green); }
+        .layer-num.ln-4 { background: rgba(251,146,60,0.12); color: var(--orange); }
+
+        .layer-body h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+        .layer-body > p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+        .layer-items {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        .layer-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .layer-item .li-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .li-dot.ld-purple { background: var(--purple-400); }
+        .li-dot.ld-blue { background: var(--blue); }
+        .li-dot.ld-green { background: var(--green); }
+        .li-dot.ld-orange { background: var(--orange); }
+
+        /* TECH SPECS */
+        .specs-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 72px;
+        }
+        .specs-section h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .specs-section h2 .sp-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: rgba(103,232,249,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .specs-section > p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .spec-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .spec-label { font-size: 14px; color: var(--text-muted); }
+        .spec-val { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+        .spec-val.mono { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--cyan); }
+
+        /* SECURITY */
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 72px;
+        }
+        .sec-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .sec-card:hover {
+            border-color: rgba(74,222,128,0.3);
+            transform: translateY(-3px);
+        }
+        .sec-icon { font-size: 28px; margin-bottom: 12px; }
+        .sec-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+        .sec-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+        /* CTA */
+        .page-cta {
+            text-align: center;
+            padding: 20px 0 100px;
+        }
+        .page-cta h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
+        .page-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 28px; }
+        .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple-600), var(--purple-700));
+            color: white;
+            box-shadow: 0 0 24px rgba(124,58,237,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(124,58,237,0.45); }
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--purple-600); }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+        }
+        .footer-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-text { font-size: 13px; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-links a {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .vectors-grid { grid-template-columns: 1fr; }
+            .flow-diagram { gap: 8px; }
+            .flow-arrow { display: none; }
+            .flow-node { min-width: 100px; padding: 14px; }
+            .dt-header, .dt-row { grid-template-columns: 1fr 100px 100px 80px; padding: 12px 16px; font-size: 11px; }
+            .layer-card { grid-template-columns: 1fr; gap: 12px; padding: 24px; }
+            .layer-items { grid-template-columns: 1fr; }
+            .specs-grid { grid-template-columns: 1fr; }
+            .specs-section { padding: 28px; }
+            .security-grid { grid-template-columns: 1fr 1fr; }
+            .arch-hero { padding: 28px; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .footer-content { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo"><img src="maikol-logo.png" alt="MAIKOL" class="logo-img"></a>
+            <a href="index.html" class="btn-back">&#8592; Volver</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Arquitectura del <span>Sistema</span></h1>
+            <p>Documentacion tecnica completa de como MAIKOL identifica, rota y verifica cada vector de fingerprinting que FiveM utiliza para rastrear tu hardware.</p>
+        </div>
+
+        <!-- ARCHITECTURE HERO -->
+        <div class="arch-hero">
+            <h2><span class="ah-icon">&#128736;</span> Vision General</h2>
+            <p>MAIKOL opera como un motor de rotacion de identidad de hardware en 5 fases secuenciales. Cada fase ataca un vector de fingerprinting diferente a nivel de registro de Windows, red y filesystem.</p>
+
+            <div class="flow-diagram">
+                <div class="flow-node">
+                    <div class="fn-icon">&#128451;</div>
+                    <h5>FiveM Data</h5>
+                    <p>Cache y tokens</p>
+                </div>
+                <span class="flow-arrow">&#8594;</span>
+                <div class="flow-node">
+                    <div class="fn-icon">&#128272;</div>
+                    <h5>HWID</h5>
+                    <p>Registro Windows</p>
+                </div>
+                <span class="flow-arrow">&#8594;</span>
+                <div class="flow-node">
+                    <div class="fn-icon">&#127760;</div>
+                    <h5>Red</h5>
+                    <p>MAC / DNS / DHCP</p>
+                </div>
+                <span class="flow-arrow">&#8594;</span>
+                <div class="flow-node">
+                    <div class="fn-icon">&#128465;</div>
+                    <h5>Rastros</h5>
+                    <p>Temp / Logs</p>
+                </div>
+                <span class="flow-arrow">&#8594;</span>
+                <div class="flow-node">
+                    <div class="fn-icon">&#10003;</div>
+                    <h5>Verificacion</h5>
+                    <p>Reporte HWID</p>
+                </div>
+            </div>
+
+            <div class="arch-badges">
+                <span class="arch-badge">100% Local</span>
+                <span class="arch-badge">Sin telemetria</span>
+                <span class="arch-badge">PowerShell 5.1</span>
+                <span class="arch-badge">Windows 10/11 x64</span>
+                <span class="arch-badge">Sin dependencias externas</span>
+            </div>
+        </div>
+
+        <!-- FINGERPRINT VECTORS -->
+        <div class="section-label">Vectores</div>
+        <h2 class="section-title">Vectores de Fingerprinting</h2>
+        <p class="section-desc">Cada identificador que FiveM y los servidores leen para vincular tu cuenta a tu maquina.</p>
+
+        <div class="vectors-grid">
+            <div class="vector-card vc-purple">
+                <div class="vc-icon vi-purple">&#128272;</div>
+                <h3>MachineGuid</h3>
+                <p>Identificador unico principal de la maquina. FiveM lo lee como primera capa de fingerprint.</p>
+                <div class="vc-reg">
+                    <span class="rk">HKLM:\SOFTWARE\Microsoft\Cryptography</span><br>
+                    -> <span class="rv">MachineGuid</span> (REG_SZ)
+                </div>
+                <div class="vc-tags">
+                    <span class="vc-tag read">FiveM Lee</span>
+                    <span class="vc-tag write">MAIKOL Rota</span>
+                </div>
+            </div>
+
+            <div class="vector-card vc-blue">
+                <div class="vc-icon vi-blue">&#128203;</div>
+                <h3>ProductId</h3>
+                <p>ID de producto de la licencia de Windows. Formato XXXXX-XXXXX-XXXXX-XXXXX validado.</p>
+                <div class="vc-reg">
+                    <span class="rk">HKLM:\...\Windows NT\CurrentVersion</span><br>
+                    -> <span class="rv">ProductId</span> (REG_SZ)
+                </div>
+                <div class="vc-tags">
+                    <span class="vc-tag read">FiveM Lee</span>
+                    <span class="vc-tag write">MAIKOL Rota</span>
+                </div>
+            </div>
+
+            <div class="vector-card vc-green">
+                <div class="vc-icon vi-green">&#128197;</div>
+                <h3>InstallDate</h3>
+                <p>Timestamp UNIX de la fecha de instalacion de Windows. Se rota a un valor aleatorio.</p>
+                <div class="vc-reg">
+                    <span class="rk">HKLM:\...\Windows NT\CurrentVersion</span><br>
+                    -> <span class="rv">InstallDate</span> (REG_DWORD)
+                </div>
+                <div class="vc-tags">
+                    <span class="vc-tag read">FiveM Lee</span>
+                    <span class="vc-tag write">MAIKOL Rota</span>
+                </div>
+            </div>
+
+            <div class="vector-card vc-orange">
+                <div class="vc-icon vi-orange">&#128187;</div>
+                <h3>HwProfileGuid</h3>
+                <p>GUID del perfil de hardware del sistema. Identifica la configuracion de hardware activa.</p>
+                <div class="vc-reg">
+                    <span class="rk">HKLM:\...\IDConfigDB\...\0001</span><br>
+                    -> <span class="rv">HwProfileGuid</span> (REG_SZ)
+                </div>
+                <div class="vc-tags">
+                    <span class="vc-tag read">FiveM Lee</span>
+                    <span class="vc-tag write">MAIKOL Rota</span>
+                    <span class="vc-tag reboot">Reinicio</span>
+                </div>
+            </div>
+
+            <div class="vector-card vc-cyan">
+                <div class="vc-icon vi-cyan">&#128200;</div>
+                <h3>SMBIOS Serial</h3>
+                <p>Numero de serie del sistema en la tabla SMBIOS. Lectura de hardware a nivel de registro.</p>
+                <div class="vc-reg">
+                    <span class="rk">HKLM:\...\SystemInformation</span><br>
+                    -> <span class="rv">SystemSerialNumber</span> (REG_SZ)
+                </div>
+                <div class="vc-tags">
+                    <span class="vc-tag read">FiveM Lee</span>
+                    <span class="vc-tag write">MAIKOL Rota</span>
+                </div>
+            </div>
+
+            <div class="vector-card vc-pink">
+                <div class="vc-icon vi-pink">&#127760;</div>
+                <h3>Direccion MAC</h3>
+                <p>Direccion fisica de cada adaptador de red. Se rota con MAC aleatoria valida + ciclo de adaptador.</p>
+                <div class="vc-reg">
+                    <span class="rk">Set-NetAdapter</span> -MacAddress<br>
+                    -> <span class="rv">[MAC aleatoria]</span> + Ciclo On/Off
+                </div>
+                <div class="vc-tags">
+                    <span class="vc-tag read">FiveM Lee</span>
+                    <span class="vc-tag write">MAIKOL Rota</span>
+                    <span class="vc-tag safe">Automatico</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- DETECTION TABLE -->
+        <div class="detect-section">
+            <div class="section-label">Cobertura</div>
+            <h2 class="section-title">Matriz de Deteccion</h2>
+            <p class="section-desc">Que lee FiveM, como lo lee y como MAIKOL lo neutraliza.</p>
+
+            <div class="detect-table">
+                <div class="dt-header">
+                    <span>Identificador</span>
+                    <span>Metodo de Lectura</span>
+                    <span>Contramedida</span>
+                    <span>Estado</span>
+                </div>
+                <div class="dt-row">
+                    <span class="dt-id">MachineGuid</span>
+                    <span class="dt-method">Lectura de registro</span>
+                    <span class="dt-spoof">GUID aleatorio</span>
+                    <span><span class="dt-badge covered">Cubierto</span></span>
+                </div>
+                <div class="dt-row">
+                    <span class="dt-id">ProductId</span>
+                    <span class="dt-method">Lectura de registro</span>
+                    <span class="dt-spoof">Formato validado</span>
+                    <span><span class="dt-badge covered">Cubierto</span></span>
+                </div>
+                <div class="dt-row">
+                    <span class="dt-id">InstallDate</span>
+                    <span class="dt-method">Lectura de registro</span>
+                    <span class="dt-spoof">Timestamp aleatorio</span>
+                    <span><span class="dt-badge covered">Cubierto</span></span>
+                </div>
+                <div class="dt-row">
+                    <span class="dt-id">HwProfileGuid</span>
+                    <span class="dt-method">Lectura de registro</span>
+                    <span class="dt-spoof">GUID aleatorio</span>
+                    <span><span class="dt-badge covered">Cubierto</span></span>
+                </div>
+                <div class="dt-row">
+                    <span class="dt-id">SMBIOS Serial</span>
+                    <span class="dt-method">Lectura de registro</span>
+                    <span class="dt-spoof">Serial aleatorio</span>
+                    <span><span class="dt-badge covered">Cubierto</span></span>
+                </div>
+                <div class="dt-row">
+                    <span class="dt-id">MAC Address</span>
+                    <span class="dt-method">API de red</span>
+                    <span class="dt-spoof">MAC + ciclo</span>
+                    <span><span class="dt-badge covered">Cubierto</span></span>
+                </div>
+                <div class="dt-row">
+                    <span class="dt-id">Nombre Equipo</span>
+                    <span class="dt-method">API de sistema</span>
+                    <span class="dt-spoof">DESKTOP-XXXXXXX</span>
+                    <span><span class="dt-badge covered">Cubierto</span></span>
+                </div>
+                <div class="dt-row">
+                    <span class="dt-id">Tokens CitizenFX</span>
+                    <span class="dt-method">Registro + archivo</span>
+                    <span class="dt-spoof">Eliminacion total</span>
+                    <span><span class="dt-badge covered">Cubierto</span></span>
+                </div>
+                <div class="dt-row">
+                    <span class="dt-id">Cache FiveM</span>
+                    <span class="dt-method">Filesystem</span>
+                    <span class="dt-spoof">Eliminacion total</span>
+                    <span><span class="dt-badge covered">Cubierto</span></span>
+                </div>
+                <div class="dt-row">
+                    <span class="dt-id">GPU Serial</span>
+                    <span class="dt-method">WMI / Driver</span>
+                    <span class="dt-spoof">En desarrollo</span>
+                    <span><span class="dt-badge partial">Roadmap</span></span>
+                </div>
+                <div class="dt-row">
+                    <span class="dt-id">Disco Serial</span>
+                    <span class="dt-method">WMI / IOCTL</span>
+                    <span class="dt-spoof">En desarrollo</span>
+                    <span><span class="dt-badge partial">Roadmap</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LAYERS -->
+        <div class="layers-section">
+            <div class="section-label">Capas</div>
+            <h2 class="section-title">Capas de Proteccion</h2>
+            <p class="section-desc">El sistema opera en 4 capas independientes que juntas crean una identidad completamente nueva.</p>
+
+            <div class="layer-cards">
+                <div class="layer-card">
+                    <div class="layer-num ln-1">L1</div>
+                    <div class="layer-body">
+                        <h3>Capa de Registro</h3>
+                        <p>Modifica los valores del registro de Windows que contienen identificadores de hardware unicos del sistema.</p>
+                        <div class="layer-items">
+                            <div class="layer-item"><span class="li-dot ld-purple"></span> MachineGuid</div>
+                            <div class="layer-item"><span class="li-dot ld-purple"></span> ProductId</div>
+                            <div class="layer-item"><span class="li-dot ld-purple"></span> InstallDate</div>
+                            <div class="layer-item"><span class="li-dot ld-purple"></span> HwProfileGuid</div>
+                            <div class="layer-item"><span class="li-dot ld-purple"></span> SMBIOS Serial</div>
+                            <div class="layer-item"><span class="li-dot ld-purple"></span> ComputerName</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layer-card">
+                    <div class="layer-num ln-2">L2</div>
+                    <div class="layer-body">
+                        <h3>Capa de Red</h3>
+                        <p>Rota las direcciones MAC de los adaptadores fisicos y renueva la configuracion de red completa.</p>
+                        <div class="layer-items">
+                            <div class="layer-item"><span class="li-dot ld-blue"></span> MAC por adaptador</div>
+                            <div class="layer-item"><span class="li-dot ld-blue"></span> Flush DNS</div>
+                            <div class="layer-item"><span class="li-dot ld-blue"></span> Renovacion DHCP</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layer-card">
+                    <div class="layer-num ln-3">L3</div>
+                    <div class="layer-body">
+                        <h3>Capa de Aplicacion</h3>
+                        <p>Elimina todos los datos locales de FiveM, Rockstar, Discord y Steam que pueden vincular identidades.</p>
+                        <div class="layer-items">
+                            <div class="layer-item"><span class="li-dot ld-green"></span> Cache de FiveM</div>
+                            <div class="layer-item"><span class="li-dot ld-green"></span> Tokens CitizenFX</div>
+                            <div class="layer-item"><span class="li-dot ld-green"></span> Rockstar Social Club</div>
+                            <div class="layer-item"><span class="li-dot ld-green"></span> Cache de Discord</div>
+                            <div class="layer-item"><span class="li-dot ld-green"></span> Cache de Steam</div>
+                            <div class="layer-item"><span class="li-dot ld-green"></span> Registros de FiveM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layer-card">
+                    <div class="layer-num ln-4">L4</div>
+                    <div class="layer-body">
+                        <h3>Capa de Sistema</h3>
+                        <p>Limpia rastros residuales del sistema operativo que podrian usarse para correlacion de identidad.</p>
+                        <div class="layer-items">
+                            <div class="layer-item"><span class="li-dot ld-orange"></span> Archivos temporales</div>
+                            <div class="layer-item"><span class="li-dot ld-orange"></span> Prefetch</div>
+                            <div class="layer-item"><span class="li-dot ld-orange"></span> Event Logs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TECH SPECS -->
+        <div class="specs-section">
+            <h2><span class="sp-icon">&#128736;</span> Especificaciones Tecnicas</h2>
+            <p>Detalles del entorno de ejecucion y requisitos del motor de MAIKOL.</p>
+
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <span class="spec-label">Lenguaje</span>
+                    <span class="spec-val mono">PowerShell 5.1</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Interfaz</span>
+                    <span class="spec-val mono">WPF / XAML</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Arquitectura</span>
+                    <span class="spec-val mono">x86-64</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">SO Minimo</span>
+                    <span class="spec-val mono">Win 10 1903</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Permisos</span>
+                    <span class="spec-val mono">Administrador</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Dependencias</span>
+                    <span class="spec-val mono">Ninguna</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Tamano</span>
+                    <span class="spec-val mono">~2.4 MB</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Red requerida</span>
+                    <span class="spec-val mono">No</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Telemetria</span>
+                    <span class="spec-val mono">Ninguna</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Encoding</span>
+                    <span class="spec-val mono">ASCII puro</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECURITY PRINCIPLES -->
+        <div class="section-label">Seguridad</div>
+        <h2 class="section-title">Principios de Seguridad</h2>
+        <p class="section-desc">Los pilares fundamentales que guian el diseno del sistema.</p>
+
+        <div class="security-grid">
+            <div class="sec-card">
+                <div class="sec-icon">&#128274;</div>
+                <h4>Zero Network</h4>
+                <p>No hace conexiones de red. No envia ni recibe datos. 100% offline.</p>
+            </div>
+            <div class="sec-card">
+                <div class="sec-icon">&#128065;</div>
+                <h4>Zero Telemetria</h4>
+                <p>No recopila metricas, no trackea uso, no reporta errores a servidores.</p>
+            </div>
+            <div class="sec-card">
+                <div class="sec-icon">&#128190;</div>
+                <h4>Zero Persistencia</h4>
+                <p>No instala servicios, drivers ni entradas de inicio. No deja rastro propio.</p>
+            </div>
+            <div class="sec-card">
+                <div class="sec-icon">&#128270;</div>
+                <h4>Codigo Auditable</h4>
+                <p>Script PowerShell legible. Puedes revisar cada linea antes de ejecutar.</p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="page-cta">
+            <h2>Transparencia <span style="color: var(--purple-400);">tecnica total</span></h2>
+            <p>Conoce exactamente que hace MAIKOL antes de ejecutarlo. Sin cajas negras.</p>
+            <div class="cta-buttons">
+                <a href="como-funciona.html" class="btn btn-primary">Como Funciona</a>
+                <a href="descargas.html" class="btn btn-secondary">Descargar</a>
+                <a href="faq.html" class="btn btn-secondary">Preguntas Frecuentes</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">2024 - 2026 MAIKOL Spoof. Todos los derechos reservados.</div>
+            <div class="footer-links">
+                <a href="index.html">Inicio</a>
+                <a href="como-funciona.html">Como Funciona</a>
+                <a href="descargas.html">Descargas</a>
+                <a href="testimonios.html">Testimonios</a>
+                <a href="garantia.html">Garantia</a>
+                <a href="actualizaciones.html">Actualizaciones</a>
+                <a href="servicio.html">Servicio</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="faq.html">FAQ</a>
+                <a href="terminos.html">Terminos</a>
+                <a href="privacidad.html">Privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
