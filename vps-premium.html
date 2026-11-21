@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPS Premium - MAIKOL Hosting Dedicado FiveM</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #030308;
+            --bg-secondary: #080810;
+            --bg-card: #0a0a14;
+            --bg-card-hover: #10101e;
+            --border: #161630;
+            --text-primary: #f4f4fa;
+            --text-secondary: #8585a8;
+            --text-muted: #454568;
+            --gold: #d4a853;
+            --gold-light: #f0d48a;
+            --gold-dark: #a07830;
+            --fivem: #f40552;
+            --purple-400: #a78bfa;
+            --purple-600: #7c3aed;
+            --green: #4ade80;
+            --blue: #60a5fa;
+            --cyan: #67e8f9;
+            --orange: #fb923c;
+            --yellow: #fbbf24;
+            --pink: #f472b6;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animated gold grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                linear-gradient(rgba(212,168,83,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212,168,83,0.015) 1px, transparent 1px);
+            background-size: 80px 80px;
+            pointer-events: none;
+            z-index: 0;
+            animation: gridShift 25s linear infinite;
+        }
+        @keyframes gridShift { 0%{transform:translate(0,0)} 100%{transform:translate(80px,80px)} }
+
+        /* Ambient blobs */
+        .ambient { position: fixed; border-radius: 50%; filter: blur(140px); pointer-events: none; z-index: 0; }
+        .amb-1 { width: 700px; height: 700px; background: radial-gradient(circle, rgba(212,168,83,0.08), transparent 70%); top: -250px; left: -150px; animation: af1 18s ease-in-out infinite; }
+        .amb-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(244,5,82,0.06), transparent 70%); top: 50%; right: -200px; animation: af2 22s ease-in-out infinite; }
+        .amb-3 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(212,168,83,0.06), transparent 70%); bottom: -100px; left: 30%; animation: af3 15s ease-in-out infinite; }
+        @keyframes af1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(80px,50px)} }
+        @keyframes af2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-50px,40px)} }
+        @keyframes af3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,-60px)} }
+
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 14px 0; background: rgba(3,3,8,0.75); backdrop-filter: blur(24px) saturate(1.5); border-bottom: 1px solid rgba(212,168,83,0.08); }
+        nav .nav-inner { max-width: 1140px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .logo { text-decoration: none; }
+        .logo-img { height: 44px; width: auto; display: block; }
+        .nav-right { display: flex; gap: 10px; }
+        .btn-nav {
+            display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px;
+            border-radius: 10px; font-size: 13px; font-weight: 600; text-decoration: none;
+            transition: all 0.3s; border: 1px solid rgba(255,255,255,0.06);
+            background: rgba(255,255,255,0.03); color: var(--text-primary);
+        }
+        .btn-nav:hover { border-color: rgba(212,168,83,0.3); background: rgba(212,168,83,0.06); }
+        .btn-nav.active { border-color: rgba(212,168,83,0.4); color: var(--gold); }
+
+        /* HEADER */
+        .page-header { padding: 190px 0 90px; text-align: center; position: relative; }
+        .page-header::before { content: ''; position: absolute; top: 60px; left: 50%; transform: translateX(-50%); width: 800px; height: 500px; background: radial-gradient(ellipse, rgba(212,168,83,0.07) 0%, rgba(244,5,82,0.03) 40%, transparent 70%); pointer-events: none; }
+
+        .premium-crown { font-size: 48px; margin-bottom: 20px; display: block; filter: drop-shadow(0 0 20px rgba(212,168,83,0.4)); animation: crownFloat 4s ease-in-out infinite; }
+        @keyframes crownFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+        .page-header .badge {
+            display: inline-flex; align-items: center; gap: 10px; padding: 10px 28px;
+            border-radius: 50px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 4px;
+            background: linear-gradient(135deg, rgba(212,168,83,0.15), rgba(240,212,138,0.05));
+            border: 1px solid rgba(212,168,83,0.25); color: var(--gold); margin-bottom: 28px;
+        }
+        .page-header h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 900; letter-spacing: -2.5px; margin-bottom: 20px; line-height: 1.0; }
+        .page-header h1 span { background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-header h1 .fivem-text { background: linear-gradient(135deg, var(--fivem), var(--purple-400)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-header p { font-size: 18px; color: var(--text-secondary); max-width: 660px; margin: 0 auto; line-height: 1.8; }
+
+        /* EXCLUSIVE BADGE */
+        .exclusive-bar {
+            display: flex; align-items: center; justify-content: center; gap: 32px;
+            padding: 20px 0; margin-bottom: 80px;
+            border-top: 1px solid rgba(212,168,83,0.1); border-bottom: 1px solid rgba(212,168,83,0.1);
+        }
+        .exc-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); font-weight: 600; }
+        .exc-item .exc-icon { color: var(--gold); font-size: 16px; }
+
+        /* SECTION */
+        .section-label { font-size: 11px; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 14px; text-align: center; }
+        .section-title { font-size: clamp(28px, 4vw, 42px); font-weight: 900; letter-spacing: -1px; text-align: center; margin-bottom: 14px; }
+        .section-desc { font-size: 15px; color: var(--text-secondary); text-align: center; max-width: 580px; margin: 0 auto 56px; }
+
+        /* ══ PRICING ══ */
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 100px; align-items: start; }
+
+        .pricing-card {
+            background: rgba(212,168,83,0.02);
+            border: 1px solid rgba(212,168,83,0.08);
+            border-radius: 28px; padding: 48px 32px;
+            position: relative; overflow: hidden;
+            transition: all 0.5s cubic-bezier(.4,0,.2,1);
+            backdrop-filter: blur(16px);
+        }
+        .pricing-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+        .pricing-card::after {
+            content: ''; position: absolute; inset: 0; border-radius: 28px; padding: 1px;
+            background: linear-gradient(180deg, rgba(212,168,83,0.12), transparent 60%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+        }
+        .pricing-card:hover { transform: translateY(-10px); box-shadow: 0 40px 80px rgba(0,0,0,0.5); }
+
+        .plan-gold::before { background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark)); background-size: 300% 100%; animation: goldShimmer 4s linear infinite; }
+        .plan-diamond::before { background: linear-gradient(90deg, #60a5fa, #c084fc, #67e8f9, #c084fc, #60a5fa); background-size: 300% 100%; animation: goldShimmer 4s linear infinite; }
+        .plan-obsidian::before { background: linear-gradient(90deg, var(--fivem), var(--gold), var(--fivem)); background-size: 300% 100%; animation: goldShimmer 4s linear infinite; }
+
+        .plan-diamond { border-color: rgba(96,165,250,0.15); background: linear-gradient(180deg, rgba(96,165,250,0.03), rgba(192,132,252,0.02), transparent); }
+        .plan-diamond:hover { border-color: rgba(96,165,250,0.3); box-shadow: 0 40px 80px rgba(96,165,250,0.08); }
+
+        .plan-obsidian { border-color: rgba(244,5,82,0.15); background: linear-gradient(180deg, rgba(244,5,82,0.03), rgba(212,168,83,0.02), transparent); }
+        .plan-obsidian:hover { border-color: rgba(244,5,82,0.3); box-shadow: 0 40px 80px rgba(244,5,82,0.08); }
+
+        @keyframes goldShimmer { 0%{background-position:300% 0} 100%{background-position:-300% 0} }
+
+        .plan-badge {
+            position: absolute; top: 20px; right: 20px; padding: 6px 18px;
+            border-radius: 50px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .badge-gold { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #1a1200; box-shadow: 0 4px 20px rgba(212,168,83,0.3); }
+        .badge-diamond { background: linear-gradient(135deg, #60a5fa, #c084fc); color: white; box-shadow: 0 4px 20px rgba(96,165,250,0.3); }
+        .badge-obsidian { background: linear-gradient(135deg, var(--fivem), var(--gold)); color: white; box-shadow: 0 4px 20px rgba(244,5,82,0.3); }
+
+        .plan-icon { width: 64px; height: 64px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 30px; margin-bottom: 24px; }
+        .pi-gold { background: linear-gradient(135deg, rgba(212,168,83,0.2), rgba(240,212,138,0.08)); border: 1px solid rgba(212,168,83,0.3); box-shadow: 0 0 30px rgba(212,168,83,0.1); }
+        .pi-diamond { background: linear-gradient(135deg, rgba(96,165,250,0.2), rgba(192,132,252,0.08)); border: 1px solid rgba(96,165,250,0.3); box-shadow: 0 0 30px rgba(96,165,250,0.1); }
+        .pi-obsidian { background: linear-gradient(135deg, rgba(244,5,82,0.2), rgba(212,168,83,0.08)); border: 1px solid rgba(244,5,82,0.3); box-shadow: 0 0 30px rgba(244,5,82,0.1); }
+
+        .plan-name { font-size: 26px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.5px; }
+        .plan-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.6; }
+
+        .plan-price { margin-bottom: 6px; display: flex; align-items: baseline; gap: 2px; }
+        .price-currency { font-size: 22px; font-weight: 700; color: var(--text-secondary); }
+        .price-amount { font-size: 60px; font-weight: 900; letter-spacing: -3px; line-height: 1; }
+
+        .plan-gold .price-amount { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .plan-diamond .price-amount { background: linear-gradient(135deg, #60a5fa, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .plan-obsidian .price-amount { background: linear-gradient(135deg, var(--fivem), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        .price-period { font-size: 14px; color: var(--text-muted); font-weight: 500; }
+        .price-note { font-size: 11px; color: var(--text-muted); margin-bottom: 32px; letter-spacing: 0.3px; }
+
+        .plan-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(212,168,83,0.1), transparent); margin-bottom: 28px; }
+
+        .plan-specs { margin-bottom: 28px; }
+        .spec-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .spec-row:last-child { border-bottom: none; }
+        .spec-label { font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+        .spec-label .spec-icon { font-size: 15px; opacity: 0.6; }
+        .spec-value { font-size: 13px; font-weight: 800; }
+
+        .plan-features { list-style: none; margin-bottom: 36px; }
+        .plan-features li { display: flex; align-items: center; gap: 10px; padding: 7px 0; font-size: 13px; color: var(--text-secondary); }
+        .plan-features .feat-check { color: var(--gold); font-size: 14px; flex-shrink: 0; font-weight: 700; }
+
+        /* BUTTONS */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; border-radius: 14px; font-size: 15px; font-weight: 700; text-decoration: none; transition: all 0.3s cubic-bezier(.4,0,.2,1); border: none; cursor: pointer; width: 100%; position: relative; overflow: hidden; }
+        .btn::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s; background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent); }
+        .btn:hover::before { opacity: 1; }
+
+        .btn-gold { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #1a1200; box-shadow: 0 4px 30px rgba(212,168,83,0.3); }
+        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 12px 50px rgba(212,168,83,0.4); }
+        .btn-diamond { background: linear-gradient(135deg, #60a5fa, #c084fc); color: white; box-shadow: 0 4px 30px rgba(96,165,250,0.3); }
+        .btn-diamond:hover { transform: translateY(-3px); box-shadow: 0 12px 50px rgba(96,165,250,0.4); }
+        .btn-obsidian { background: linear-gradient(135deg, var(--fivem), var(--gold)); color: white; box-shadow: 0 4px 30px rgba(244,5,82,0.3); }
+        .btn-obsidian:hover { transform: translateY(-3px); box-shadow: 0 12px 50px rgba(244,5,82,0.4); }
+        .btn-secondary { background: rgba(255,255,255,0.03); color: var(--text-primary); border: 1px solid rgba(255,255,255,0.06); width: auto; }
+        .btn-secondary:hover { border-color: rgba(212,168,83,0.3); background: rgba(212,168,83,0.04); }
+
+        /* ══ WHAT'S INCLUDED ══ */
+        .included-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 100px; }
+        .inc-card {
+            background: rgba(212,168,83,0.02); border: 1px solid rgba(212,168,83,0.06);
+            border-radius: 24px; padding: 36px 28px; transition: all 0.4s; backdrop-filter: blur(12px);
+        }
+        .inc-card:hover { border-color: rgba(212,168,83,0.2); transform: translateY(-5px); box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+        .inc-icon { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; }
+        .inc-card h4 { font-size: 17px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.3px; }
+        .inc-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+
+        .fi-gold { background: linear-gradient(135deg, rgba(212,168,83,0.15), rgba(212,168,83,0.05)); border: 1px solid rgba(212,168,83,0.2); }
+        .fi-fivem { background: linear-gradient(135deg, rgba(244,5,82,0.15), rgba(244,5,82,0.05)); border: 1px solid rgba(244,5,82,0.2); }
+        .fi-purple { background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(124,58,237,0.05)); border: 1px solid rgba(124,58,237,0.2); }
+        .fi-green { background: linear-gradient(135deg, rgba(74,222,128,0.15), rgba(74,222,128,0.05)); border: 1px solid rgba(74,222,128,0.2); }
+        .fi-blue { background: linear-gradient(135deg, rgba(96,165,250,0.15), rgba(96,165,250,0.05)); border: 1px solid rgba(96,165,250,0.2); }
+        .fi-cyan { background: linear-gradient(135deg, rgba(103,232,249,0.15), rgba(103,232,249,0.05)); border: 1px solid rgba(103,232,249,0.2); }
+
+        /* ══ COMPARISON ══ */
+        .compare-section { margin-bottom: 100px; }
+        .compare-table { background: rgba(212,168,83,0.02); border: 1px solid rgba(212,168,83,0.08); border-radius: 24px; overflow: hidden; backdrop-filter: blur(12px); }
+        .cmp-header { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; padding: 20px 32px; background: linear-gradient(135deg, rgba(212,168,83,0.05), rgba(244,5,82,0.02)); border-bottom: 1px solid rgba(212,168,83,0.08); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); text-align: center; }
+        .cmp-header span:first-child { text-align: left; }
+        .cmp-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; padding: 16px 32px; align-items: center; border-bottom: 1px solid rgba(212,168,83,0.04); transition: background 0.3s; text-align: center; }
+        .cmp-row:last-child { border-bottom: none; }
+        .cmp-row:hover { background: rgba(212,168,83,0.02); }
+        .cmp-row span:first-child { font-size: 14px; color: var(--text-secondary); text-align: left; }
+        .cmp-yes { color: var(--gold); font-size: 16px; font-weight: 700; }
+        .cmp-no { color: var(--text-muted); font-size: 14px; opacity: 0.3; }
+        .cmp-val { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+
+        /* ══ TRUST ══ */
+        .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 100px; }
+        .trust-card { background: rgba(212,168,83,0.02); border: 1px solid rgba(212,168,83,0.06); border-radius: 20px; padding: 28px 16px; text-align: center; transition: all 0.4s; }
+        .trust-card:hover { border-color: rgba(212,168,83,0.2); transform: translateY(-4px); }
+        .trust-icon { font-size: 32px; margin-bottom: 12px; }
+        .trust-card h5 { font-size: 14px; font-weight: 800; margin-bottom: 4px; }
+        .trust-card p { font-size: 12px; color: var(--text-muted); }
+
+        /* ══ VS PRO ══ */
+        .vs-section { margin-bottom: 100px; }
+        .vs-card {
+            background: linear-gradient(135deg, rgba(212,168,83,0.04), rgba(244,5,82,0.02));
+            border: 1px solid rgba(212,168,83,0.12); border-radius: 28px;
+            padding: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; position: relative; overflow: hidden;
+        }
+        .vs-card::before { content: 'VS'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 80px; font-weight: 900; color: rgba(212,168,83,0.06); pointer-events: none; }
+        .vs-side h3 { font-size: 22px; font-weight: 900; margin-bottom: 20px; }
+        .vs-side h3 .gold { color: var(--gold); }
+        .vs-side h3 .red { color: var(--fivem); }
+        .vs-list { list-style: none; }
+        .vs-list li { padding: 8px 0; font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; }
+        .vs-list li .vl-icon { font-size: 14px; flex-shrink: 0; }
+        .vs-list .gold-check { color: var(--gold); }
+        .vs-list .red-check { color: var(--fivem); }
+
+        /* ══ CTA ══ */
+        .page-cta { text-align: center; padding: 40px 0 120px; position: relative; }
+        .page-cta::before { content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(212,168,83,0.06) 0%, transparent 70%); pointer-events: none; }
+        .page-cta h2 { font-size: 38px; font-weight: 900; margin-bottom: 16px; letter-spacing: -1px; }
+        .page-cta h2 span { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-cta p { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+        .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .cta-buttons .btn { width: auto; padding: 16px 40px; }
+
+        /* FOOTER */
+        footer { border-top: 1px solid rgba(212,168,83,0.06); padding: 44px 0; }
+        .footer-content { max-width: 1140px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+        .footer-text { font-size: 13px; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--gold); }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+        .animate { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.12s; }
+        .delay-2 { animation-delay: 0.24s; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
+            .included-grid { grid-template-columns: 1fr; }
+            .trust-grid { grid-template-columns: 1fr 1fr; }
+            .exclusive-bar { flex-wrap: wrap; gap: 16px; }
+            .vs-card { grid-template-columns: 1fr; padding: 32px; }
+            .vs-card::before { display: none; }
+            .cmp-header, .cmp-row { grid-template-columns: 1.2fr 0.6fr 0.6fr 0.6fr; padding: 12px 16px; font-size: 11px; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .footer-content { flex-direction: column; gap: 16px; text-align: center; }
+            .plan-badge { position: static; display: inline-block; margin-bottom: 16px; }
+            .nav-right { gap: 6px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient amb-1"></div>
+    <div class="ambient amb-2"></div>
+    <div class="ambient amb-3"></div>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo"><img src="maikol-logo.png" alt="MAIKOL" class="logo-img"></a>
+            <div class="nav-right">
+                <a href="vps.html" class="btn-nav">&#9889; VPS Pro</a>
+                <a href="vps-premium.html" class="btn-nav active">&#128081; Premium</a>
+                <a href="index.html" class="btn-nav">&#8592; Inicio</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="page-header">
+            <span class="premium-crown">&#128081;</span>
+            <div class="badge">&#9733; Hosting Dedicado FiveM</div>
+            <h1>VPS <span>Premium</span> <span class="fivem-text">FiveM</span></h1>
+            <p>El nivel mas alto de hosting para FiveM. Hardware dedicado real, CPUs de ultima generacion, almacenamiento enterprise y soporte VIP personalizado. Para servidores que no pueden permitirse lag.</p>
+        </div>
+
+        <!-- EXCLUSIVE BAR -->
+        <div class="exclusive-bar">
+            <div class="exc-item"><span class="exc-icon">&#9733;</span> Hardware Dedicado</div>
+            <div class="exc-item"><span class="exc-icon">&#9733;</span> CPU 5.0+ GHz</div>
+            <div class="exc-item"><span class="exc-icon">&#9733;</span> NVMe Gen4 Enterprise</div>
+            <div class="exc-item"><span class="exc-icon">&#9733;</span> DDoS L7 Premium</div>
+            <div class="exc-item"><span class="exc-icon">&#9733;</span> Soporte VIP 1-a-1</div>
+        </div>
+
+        <!-- PRICING -->
+        <div class="section-label">Planes Premium</div>
+        <h2 class="section-title">Potencia Dedicada Para FiveM</h2>
+        <p class="section-desc">Tres niveles de hardware dedicado. No compartido, no virtualizado. Recursos 100% tuyos.</p>
+
+        <div class="pricing-grid">
+
+            <!-- GOLD -->
+            <div class="pricing-card plan-gold animate">
+                <span class="plan-badge badge-gold">Gold</span>
+                <div class="plan-icon pi-gold">&#128081;</div>
+                <div class="plan-name">Premium Gold</div>
+                <div class="plan-desc">Hardware dedicado para servidores RP medianos con muchos scripts y OneSync Infinity.</div>
+                <div class="plan-price">
+                    <span class="price-currency">$</span>
+                    <span class="price-amount">59.99</span>
+                </div>
+                <div class="price-period">USD / mes</div>
+                <div class="price-note">Facturacion mensual &bull; Hardware dedicado real</div>
+                <div class="plan-divider"></div>
+                <div class="plan-specs">
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128187;</span> CPU</span><span class="spec-value">6 Cores / 5.0 GHz</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128190;</span> RAM</span><span class="spec-value">16 GB DDR5</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128194;</span> SSD</span><span class="spec-value">256 GB NVMe Gen4</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128101;</span> Slots</span><span class="spec-value">128 jugadores</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128268;</span> OneSync</span><span class="spec-value">Infinity</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#127760;</span> Red</span><span class="spec-value">5 Gbps dedicado</span></div>
+                </div>
+                <ul class="plan-features">
+                    <li><span class="feat-check">&#10003;</span> txAdmin + Framework Completo</li>
+                    <li><span class="feat-check">&#10003;</span> MySQL Dedicado Optimizado</li>
+                    <li><span class="feat-check">&#10003;</span> DDoS L3/L4/L7</li>
+                    <li><span class="feat-check">&#10003;</span> 4 IPs Dedicadas</li>
+                    <li><span class="feat-check">&#10003;</span> Backups Cada 4 Horas</li>
+                    <li><span class="feat-check">&#10003;</span> Soporte VIP 24/7</li>
+                    <li><span class="feat-check">&#10003;</span> Acceso Root SSH</li>
+                </ul>
+                <a href="contacto.html" class="btn btn-gold">Contratar Gold &#128081;</a>
+            </div>
+
+            <!-- DIAMOND -->
+            <div class="pricing-card plan-diamond animate delay-1">
+                <span class="plan-badge badge-diamond">&#128142; Diamond</span>
+                <div class="plan-icon pi-diamond">&#128142;</div>
+                <div class="plan-name">Premium Diamond</div>
+                <div class="plan-desc">El equilibrio definitivo. Para servidores RP masivos con 200+ scripts y zero desync.</div>
+                <div class="plan-price">
+                    <span class="price-currency">$</span>
+                    <span class="price-amount">89.99</span>
+                </div>
+                <div class="price-period">USD / mes</div>
+                <div class="price-note">Facturacion mensual &bull; Setup completo incluido</div>
+                <div class="plan-divider"></div>
+                <div class="plan-specs">
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128187;</span> CPU</span><span class="spec-value">8 Cores / 5.2 GHz</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128190;</span> RAM</span><span class="spec-value">32 GB DDR5</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128194;</span> SSD</span><span class="spec-value">512 GB NVMe Gen4</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128101;</span> Slots</span><span class="spec-value">200 jugadores</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128268;</span> OneSync</span><span class="spec-value">Infinity+</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#127760;</span> Red</span><span class="spec-value">10 Gbps dedicado</span></div>
+                </div>
+                <ul class="plan-features">
+                    <li><span class="feat-check">&#10003;</span> Setup Completo Personalizado</li>
+                    <li><span class="feat-check">&#10003;</span> MySQL Dedicado + Redis Cache</li>
+                    <li><span class="feat-check">&#10003;</span> DDoS Premium + WAF</li>
+                    <li><span class="feat-check">&#10003;</span> 8 IPs Dedicadas</li>
+                    <li><span class="feat-check">&#10003;</span> Backups Cada 2 Horas</li>
+                    <li><span class="feat-check">&#10003;</span> Soporte VIP 1-a-1</li>
+                    <li><span class="feat-check">&#10003;</span> Optimizacion de Scripts</li>
+                </ul>
+                <a href="contacto.html" class="btn btn-diamond">Contratar Diamond &#128142;</a>
+            </div>
+
+            <!-- OBSIDIAN -->
+            <div class="pricing-card plan-obsidian animate delay-2">
+                <span class="plan-badge badge-obsidian">&#9733; Obsidian</span>
+                <div class="plan-icon pi-obsidian">&#9733;</div>
+                <div class="plan-name">Premium Obsidian</div>
+                <div class="plan-desc">Lo maximo. Servidor dedicado completo para las comunidades mas grandes de FiveM en LATAM.</div>
+                <div class="plan-price">
+                    <span class="price-currency">$</span>
+                    <span class="price-amount">149.99</span>
+                </div>
+                <div class="price-period">USD / mes</div>
+                <div class="price-note">Facturacion mensual &bull; Servidor dedicado completo</div>
+                <div class="plan-divider"></div>
+                <div class="plan-specs">
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128187;</span> CPU</span><span class="spec-value">12 Cores / 5.5 GHz</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128190;</span> RAM</span><span class="spec-value">64 GB DDR5</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128194;</span> SSD</span><span class="spec-value">1 TB NVMe Gen4</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128101;</span> Slots</span><span class="spec-value">300+ jugadores</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#128268;</span> OneSync</span><span class="spec-value">Infinity Beyond</span></div>
+                    <div class="spec-row"><span class="spec-label"><span class="spec-icon">&#127760;</span> Red</span><span class="spec-value">10 Gbps dedicado</span></div>
+                </div>
+                <ul class="plan-features">
+                    <li><span class="feat-check">&#10003;</span> Setup Full Custom + DevOps</li>
+                    <li><span class="feat-check">&#10003;</span> MySQL Cluster + Redis + Backups</li>
+                    <li><span class="feat-check">&#10003;</span> DDoS Enterprise + Firewall Custom</li>
+                    <li><span class="feat-check">&#10003;</span> IPs Ilimitadas</li>
+                    <li><span class="feat-check">&#10003;</span> Backups Continuos en Tiempo Real</li>
+                    <li><span class="feat-check">&#10003;</span> Manager Dedicado Personal</li>
+                    <li><span class="feat-check">&#10003;</span> Multi-Server (hasta 3 FXServer)</li>
+                </ul>
+                <a href="contacto.html" class="btn btn-obsidian">Contratar Obsidian &#9733;</a>
+            </div>
+
+        </div>
+
+        <!-- INCLUDED -->
+        <div class="section-label">Incluido en Premium</div>
+        <h2 class="section-title">Lo Que Otros Cobran Extra</h2>
+        <p class="section-desc">En Premium todo viene incluido. Sin sorpresas, sin addons, sin costos ocultos.</p>
+
+        <div class="included-grid">
+            <div class="inc-card">
+                <div class="inc-icon fi-gold">&#128736;</div>
+                <h4>Setup Completo FiveM</h4>
+                <p>txAdmin, artifacts, server.cfg, framework (ESX/QBCore/QBOX), base de datos, jobs, inventario, economia — todo configurado y listo para abrir.</p>
+            </div>
+            <div class="inc-card">
+                <div class="inc-icon fi-fivem">&#128737;</div>
+                <h4>Anticheat Avanzado</h4>
+                <p>Sistema anticheat server-side, proteccion de eventos, rate limiting, ACE permisos y reglas de firewall personalizadas para tu servidor.</p>
+            </div>
+            <div class="inc-card">
+                <div class="inc-icon fi-purple">&#128202;</div>
+                <h4>Monitorizacion Avanzada</h4>
+                <p>Dashboard de rendimiento en tiempo real: CPU, RAM, tick rate, jugadores online, queries/seg. Alertas por Discord si algo falla.</p>
+            </div>
+            <div class="inc-card">
+                <div class="inc-icon fi-green">&#128260;</div>
+                <h4>Backups Enterprise</h4>
+                <p>Backups incrementales automaticos de resources, base de datos y configs. Restauracion instant de cualquier punto en las ultimas 72 horas.</p>
+            </div>
+            <div class="inc-card">
+                <div class="inc-icon fi-blue">&#128295;</div>
+                <h4>Optimizacion de Scripts</h4>
+                <p>Revisamos tus resources, encontramos los que causan lag, optimizamos queries SQL y reducimos el ms/frame de tus scripts pesados.</p>
+            </div>
+            <div class="inc-card">
+                <div class="inc-icon fi-cyan">&#128172;</div>
+                <h4>Soporte VIP 1-a-1</h4>
+                <p>Canal privado en Discord con tu manager dedicado. Respuesta en menos de 15 minutos. Ayuda con scripts, DB, configs y problemas de rendimiento.</p>
+            </div>
+        </div>
+
+        <!-- VS PRO -->
+        <div class="vs-section">
+            <div class="section-label">Premium vs Pro</div>
+            <h2 class="section-title">&#191;Por Que Upgrade a Premium?</h2>
+            <p class="section-desc">La diferencia entre un VPS compartido y hardware dedicado real.</p>
+
+            <div class="vs-card">
+                <div class="vs-side">
+                    <h3>VPS <span class="red">Pro</span> (desde $9.99)</h3>
+                    <ul class="vs-list">
+                        <li><span class="vl-icon red-check">&#10003;</span> CPU compartida (vCPU)</li>
+                        <li><span class="vl-icon red-check">&#10003;</span> RAM compartida DDR4</li>
+                        <li><span class="vl-icon red-check">&#10003;</span> NVMe compartido</li>
+                        <li><span class="vl-icon red-check">&#10003;</span> Hasta 128 jugadores</li>
+                        <li><span class="vl-icon red-check">&#10003;</span> DDoS basica-avanzada</li>
+                        <li><span class="vl-icon red-check">&#10003;</span> Soporte por tickets</li>
+                        <li><span class="vl-icon red-check">&#10003;</span> Backups hasta cada 6h</li>
+                    </ul>
+                </div>
+                <div class="vs-side">
+                    <h3>VPS <span class="gold">Premium</span> (desde $59.99)</h3>
+                    <ul class="vs-list">
+                        <li><span class="vl-icon gold-check">&#9733;</span> CPU dedicada 5.0+ GHz real</li>
+                        <li><span class="vl-icon gold-check">&#9733;</span> RAM dedicada DDR5 ECC</li>
+                        <li><span class="vl-icon gold-check">&#9733;</span> NVMe Gen4 enterprise exclusivo</li>
+                        <li><span class="vl-icon gold-check">&#9733;</span> Hasta 300+ jugadores</li>
+                        <li><span class="vl-icon gold-check">&#9733;</span> DDoS L7 enterprise + WAF</li>
+                        <li><span class="vl-icon gold-check">&#9733;</span> Manager dedicado 1-a-1</li>
+                        <li><span class="vl-icon gold-check">&#9733;</span> Backups en tiempo real</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPARISON -->
+        <div class="compare-section">
+            <div class="section-label">Comparativa Premium</div>
+            <h2 class="section-title">Planes Premium FiveM</h2>
+            <p class="section-desc">Specs detalladas de cada plan premium.</p>
+
+            <div class="compare-table">
+                <div class="cmp-header"><span>Especificacion</span><span>Gold</span><span>Diamond</span><span>Obsidian</span></div>
+                <div class="cmp-row"><span>CPU Dedicada</span><span class="cmp-val">6C / 5.0G</span><span class="cmp-val">8C / 5.2G</span><span class="cmp-val">12C / 5.5G</span></div>
+                <div class="cmp-row"><span>RAM DDR5</span><span class="cmp-val">16 GB</span><span class="cmp-val">32 GB</span><span class="cmp-val">64 GB</span></div>
+                <div class="cmp-row"><span>NVMe Gen4</span><span class="cmp-val">256 GB</span><span class="cmp-val">512 GB</span><span class="cmp-val">1 TB</span></div>
+                <div class="cmp-row"><span>Slots Jugadores</span><span class="cmp-val">128</span><span class="cmp-val">200</span><span class="cmp-val">300+</span></div>
+                <div class="cmp-row"><span>Red Dedicada</span><span class="cmp-val">5 Gbps</span><span class="cmp-val">10 Gbps</span><span class="cmp-val">10 Gbps</span></div>
+                <div class="cmp-row"><span>IPs Dedicadas</span><span class="cmp-val">4</span><span class="cmp-val">8</span><span class="cmp-val">Ilimitadas</span></div>
+                <div class="cmp-row"><span>Redis Cache</span><span class="cmp-no">&#10005;</span><span class="cmp-yes">&#10003;</span><span class="cmp-yes">&#10003;</span></div>
+                <div class="cmp-row"><span>Multi-Server FXServer</span><span class="cmp-no">&#10005;</span><span class="cmp-no">&#10005;</span><span class="cmp-yes">&#10003;</span></div>
+                <div class="cmp-row"><span>Optimizacion de Scripts</span><span class="cmp-no">&#10005;</span><span class="cmp-yes">&#10003;</span><span class="cmp-yes">&#10003;</span></div>
+                <div class="cmp-row"><span>Manager Dedicado</span><span class="cmp-no">&#10005;</span><span class="cmp-yes">&#10003;</span><span class="cmp-yes">&#10003;</span></div>
+                <div class="cmp-row"><span>Backups</span><span class="cmp-val">Cada 4h</span><span class="cmp-val">Cada 2h</span><span class="cmp-val">Tiempo real</span></div>
+                <div class="cmp-row"><span>DDoS Protection</span><span class="cmp-val">L3/L4/L7</span><span class="cmp-val" style="color:var(--blue)">Premium+WAF</span><span class="cmp-val" style="color:var(--gold)">Enterprise</span></div>
+            </div>
+        </div>
+
+        <!-- TRUST -->
+        <div class="section-label">Garantias Premium</div>
+        <h2 class="section-title">Inversion Protegida</h2>
+        <p class="section-desc">Garantias de nivel enterprise para tu comunidad.</p>
+
+        <div class="trust-grid">
+            <div class="trust-card">
+                <div class="trust-icon">&#128274;</div>
+                <h5>99.99% Uptime SLA</h5>
+                <p>Mas que Pro: cuatro nueves</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon">&#128176;</div>
+                <h5>7 Dias de Prueba</h5>
+                <p>Reembolso completo garantizado</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon">&#128640;</div>
+                <h5>Setup en 1 Hora</h5>
+                <p>Server completo configurado</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon">&#128081;</div>
+                <h5>Migracion Premium</h5>
+                <p>Zero downtime garantizado</p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="page-cta">
+            <h2>&#191;Tu Server Merece <span>Lo Mejor</span>?</h2>
+            <p>Upgrade a Premium y dale a tu comunidad el rendimiento que se merece. Hardware dedicado, soporte VIP y zero compromises.</p>
+            <div class="cta-buttons">
+                <a href="contacto.html" class="btn btn-gold">&#128081; Hablar con Ventas</a>
+                <a href="vps.html" class="btn btn-secondary">Ver Planes Pro</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <span class="footer-text">&copy; 2024 MAIKOL &mdash; Todos los derechos reservados</span>
+            <div class="footer-links">
+                <a href="terminos.html">Terminos</a>
+                <a href="privacidad.html">Privacidad</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="vps.html" style="color:#f40552;">VPS Pro</a>
+                <a href="vps-premium.html" style="color:var(--gold);">VPS Premium</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
